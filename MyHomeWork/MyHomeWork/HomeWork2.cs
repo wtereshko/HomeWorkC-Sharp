@@ -33,7 +33,7 @@ namespace MyHomeWork
             switch (someChoice)
             {
                 case 1:
-                    CheckRangeNumbers();                    ;
+                    CheckRangeNumbers();                    
                     break;
                 case 2:
                     FindMaxMinValue();
