@@ -49,9 +49,11 @@ namespace MyHomeWork
                     }
                 }
             }
+
             if (!result) {
                 Console.WriteLine("Entered incorrect data");
             }
+
             if (!String.IsNullOrEmpty(inRange)) {
                 Console.WriteLine("Numbers {0} belong to the range [-5,5]", inRange);
             }
@@ -90,6 +92,60 @@ namespace MyHomeWork
             }
 
         }
+
+        public static void ReadHttpError() {
+            int httpCode;
+            Console.WriteLine("Enter Http Error Code");
+            int.TryParse(Console.ReadLine(), out httpCode);
+            switch (httpCode) {
+                case 400:
+                    Console.WriteLine(HttpError.BadRequest);
+                    break;
+                case 401:
+                    Console.WriteLine(HttpError.Unauthorized);
+                    break;
+                case 402:
+                    Console.WriteLine(HttpError.PaymentRequired);
+                    break;
+                case 403:
+                    Console.WriteLine(HttpError.Forbidden);
+                    break;
+                case 404:
+                    Console.WriteLine(HttpError.NotFound);
+                    break;
+            }
+        }
+
+        public static void MyDog() {
+            bool result = false;
+            Dog myDog = new Dog();
+            int age;
+            Console.WriteLine("Enter your's dog name");
+            myDog.Name = Console.ReadLine();
+
+            Console.WriteLine("Enter your's dog mark");
+            myDog.Mark = Console.ReadLine();
+
+            Console.WriteLine("Enter your's dog age (full years)");
+            while (!result) {
+                if (int.TryParse(Console.ReadLine(), out age)) {
+                    myDog.Age = age;
+                    result = true;
+                }
+                else {
+                    Console.WriteLine("Entered incorrect data. Try again");
+                }
+            }
+            Console.WriteLine("Dog with name {0}, mark {1}, age {2}, are registered",
+                myDog.Name, myDog.Mark, myDog.Age);
+        }
+    }
+
+    struct Dog
+    {
+        public string Name;
+        public string Mark;
+        public int Age;
     }
 }
 

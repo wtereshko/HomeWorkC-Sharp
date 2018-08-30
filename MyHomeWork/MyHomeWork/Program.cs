@@ -10,7 +10,7 @@ namespace MyHomeWork
     {
         static void Main(string[] args)
         {
-            HomeWork2.FindMaxMinValue();
+            HomeWork2.MyDog();
             //Console.WriteLine("Choose your Home Work");
             //int someChoice;
             //Int32.TryParse(Console.ReadLine(), out someChoice);
