@@ -26,8 +26,28 @@ namespace MyHomeWork
 
     class HomeWork2
     {
+        public static void HW2() {
+            Console.WriteLine("Choose your subtask. Enter number 1, 2, 3 or 4");
+            int someChoice;
+            Int32.TryParse(Console.ReadLine(), out someChoice);
+            switch (someChoice)
+            {
+                case 1:
+                    CheckRangeNumbers();                    ;
+                    break;
+                case 2:
+                    FindMaxMinValue();
+                    break;
+                case 3:
+                    ReadHttpError();
+                    break;
+                case 4:
+                    RegistersDog();
+                    break;
+            }
+        }
 
-        public static void CheckRangeNumbers() {
+        private static void CheckRangeNumbers() {
             bool result = false;
             string notInRange = String.Empty;
             string inRange = String.Empty;
@@ -63,7 +83,7 @@ namespace MyHomeWork
             }
         }
 
-        public static void FindMaxMinValue() {
+        private static void FindMaxMinValue() {
             bool result = false;
             int maxValue = 0;
             int minValue = 0;
@@ -93,7 +113,7 @@ namespace MyHomeWork
 
         }
 
-        public static void ReadHttpError() {
+        private static void ReadHttpError() {
             int httpCode;
             Console.WriteLine("Enter Http Error Code");
             int.TryParse(Console.ReadLine(), out httpCode);
@@ -116,7 +136,7 @@ namespace MyHomeWork
             }
         }
 
-        public static void MyDog() {
+        private static void RegistersDog() {
             bool result = false;
             Dog myDog = new Dog();
             int age;

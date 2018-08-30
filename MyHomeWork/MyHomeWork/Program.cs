@@ -10,23 +10,26 @@ namespace MyHomeWork
     {
         static void Main(string[] args)
         {
-            HomeWork2.MyDog();
-            //Console.WriteLine("Choose your Home Work");
-            //int someChoice;
-            //Int32.TryParse(Console.ReadLine(), out someChoice);
-            //switch (someChoice)
-            //{
-            //    case 1:
-            //        HomeWork1.HW1();
-            //        break;
-            //    case 2:
-                     
-            //        break;
-            //    case 3:
-                    
-            //        break;
+
+            Console.WriteLine("Choose your Home Work. Enter number home work number");
+            int someChoice;
+            if (Int32.TryParse(Console.ReadLine(), out someChoice))
+            {
+                switch (someChoice)
+                {
+                    case 1:
+                        HomeWork1.HW1();
+                        break;
+                    case 2:
+                        HomeWork2.HW2();
+                        break;
+                    case 3:
+
+                        break;
+                                        }
+            }
             Console.ReadKey();
         }
-        }
     }
+}
 
