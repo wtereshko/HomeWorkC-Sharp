@@ -29,5 +29,12 @@ namespace MyHomeWork
                    DateTime.DaysInMonth(DateTime.Now.Year, enteredValue));
             }else { Console.WriteLine("Entered incorrect data"); }
         }
+        public static void CalculateSum()
+        {
+            Console.WriteLine("Enter 10 integer numbers");
+            string someText = Console.ReadLine();
+            string[] textArray = someText.Split(' ');
+
+        }
     }
 }
