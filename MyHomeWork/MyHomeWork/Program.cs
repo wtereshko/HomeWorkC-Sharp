@@ -10,6 +10,21 @@ namespace MyHomeWork
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Choose your Home Work");
+            int someChoice;
+            Int32.TryParse(Console.ReadLine(), out someChoice);
+            switch (someChoice)
+            {
+                case 1:
+                    HomeWork1.HW1();
+                    break;
+                case 2:
+                     
+                    break;
+                case 3:
+                    
+                    break;
+            }
         }
     }
 }
