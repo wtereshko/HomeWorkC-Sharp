@@ -10,24 +10,35 @@ namespace MyHomeWork
     {
         static void Main(string[] args)
         {
-
-            Console.WriteLine("Choose your Home Work. Enter number home work number");
-            int someChoice;
-            if (Int32.TryParse(Console.ReadLine(), out someChoice))
-            {
-                switch (someChoice)
-                {
-                    case 1:
-                        HomeWork1.HW1();
-                        break;
-                    case 2:
-                        HomeWork2.HW2();
-                        break; 
-                    case 3:
-                        HomeWork3.HW3();
-                        break;
-                }
-            }
+            Person person = new Person();
+            person.CreatePersonData();
+            Console.ReadKey();
+            person.Age();
+            Console.ReadKey();
+            person.ChangeName();
+            Console.ReadKey();
+            person.Input();
+            Console.ReadKey();
+            person.Output();
+            Console.ReadKey();
+            person.Equal();
+            //Console.WriteLine("Choose your Home Work. Enter number home work number");
+            //int someChoice;
+            //if (Int32.TryParse(Console.ReadLine(), out someChoice))
+            //{
+            //    switch (someChoice)
+            //    {
+            //        case 1:
+            //            HomeWork1.HW1();
+            //            break;
+            //        case 2:
+            //            HomeWork2.HW2();
+            //            break; 
+            //        case 3:
+            //            HomeWork3.HW3();
+            //            break;
+            //    }
+            //}
             Console.ReadKey();
         }
     }
