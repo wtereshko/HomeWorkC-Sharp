@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHomeWork
 {
@@ -11,7 +7,7 @@ namespace MyHomeWork
         string Name { get; }
         DateTime BirtYear { get; }
 
-        void Age();
+        void CalculateAge();
         void Input();
         void ChangeName();
         string ToString();

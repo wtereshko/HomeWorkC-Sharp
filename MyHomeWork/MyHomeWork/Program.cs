@@ -13,7 +13,7 @@ namespace MyHomeWork
             Person person = new Person();
             person.CreatePersonData();
             Console.ReadKey();
-            person.Age();
+            person.CalculateAge();
             Console.ReadKey();
             person.ChangeName();
             Console.ReadKey();
@@ -40,6 +40,10 @@ namespace MyHomeWork
             //    }
             //}
             Console.ReadKey();
+        }
+
+        private void CreateIDeveloperData() {
+
         }
     }
 }

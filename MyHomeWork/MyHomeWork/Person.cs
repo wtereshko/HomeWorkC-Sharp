@@ -1,17 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyHomeWork
 {
     class Person: IPerson
     {
+        /* 1) Create class Person.
+    Class Person should consists of
+              a) two private fields: name and birthYear (the birthday year).                 
+              (*As a type for this field you may use DataTime type.)
+              b) two properties for access to these fields (only get)
+              c) default constructor and constructor with 2 parameters 
+              d) methods:
+                   - CalculateAge() - to calculate the age of person
+                    -Input() - to input information about person
+                    -ChangeName() - to change the name of person
+                    -ToString() 
+                     -Output() - to output information about person (call ToString())
+                    - operator== (equal by name)
+     In the method Main() create 6 objects of Person type and input information about them.  
+     Then calculate and write to console the name and Age of each person; 
+     Change the name of persons, which Age is less then 16, to "Very Young".
+Output information about all persons. 
+Find and output information about Persons with the same names (use ==)
+*/
         #region Fields
 
-        private string name;
-        private DateTime birthYear;
+        private string _name;
+        private DateTime _birthYear;
         private List<Person> allPersons = new List<Person>();
 
         #endregion Fields
@@ -22,8 +38,8 @@ namespace MyHomeWork
 
         public Person(string cname, DateTime cbirtYear)
         {
-            name = cname;
-            birthYear = cbirtYear;
+            _name = cname;
+            _birthYear = cbirtYear;
         }
 
         #endregion
@@ -32,11 +48,11 @@ namespace MyHomeWork
 
         public string Name
         {
-            get { return name; } 
+            get { return _name; } 
         }
         public DateTime BirtYear
         {
-            get { return birthYear; }
+            get { return _birthYear; }
         }
 
         #endregion
@@ -48,25 +64,20 @@ namespace MyHomeWork
             while (count < 2) {
                 Person person = new Person();
                 Console.WriteLine("Enter Person Name");
-                person.name = Console.ReadLine();
+                person._name = Console.ReadLine();
                 Console.WriteLine("Enter Person BirthYear");
-                person.birthYear = Convert.ToDateTime(Console.ReadLine());
+                person._birthYear = Convert.ToDateTime(Console.ReadLine());
                 allPersons.Add(person);
                 count++;
             }
         }
-        /* Then calculate and write to console the name and Age of each person; 
-         * Change the name of persons, which Age is less then 16, to "Very Young".
-            Output information about all persons. 
-            Find and output information about Persons with the same names (use ==)
-*/
 
-        public void Age() {
+        public void CalculateAge() {
             int age;
             string personsData = String.Empty;
             foreach (Person item in allPersons) {
-                age = (DateTime.Now - item.birthYear).Days / 365;
-                personsData += (item.Name + ' ' + item.BirtYear + ' ' + age + '\n').ToString();
+                age = (DateTime.Now - item._birthYear).Days / 365;
+                personsData += item.Name + ' ' + item.BirtYear + ' ' + age + '\n';
             }
             Console.WriteLine(personsData);
         }
@@ -74,19 +85,19 @@ namespace MyHomeWork
         public void Input() {
             Person person = new Person();
             Console.WriteLine("Enter Person Name");
-            person.name = Console.ReadLine();
+            person._name = Console.ReadLine();
             Console.WriteLine("Enter Person BirthYear");
-            person.birthYear = Convert.ToDateTime(Console.ReadLine());
-            allPersons.Add(person); ;
+            person._birthYear = Convert.ToDateTime(Console.ReadLine());
+            allPersons.Add(person);
         }
 
         public void ChangeName() {
             int age;
             foreach (Person item in allPersons)
             {
-                age = (DateTime.Now - item.birthYear).Days / 365;
+                age = (DateTime.Now - item._birthYear).Days / 365;
                 if (age < 16) {
-                    item.name += " Very Young";
+                    item._name += " Very Young";
                 }
                }
         }
@@ -95,13 +106,13 @@ namespace MyHomeWork
             Console.WriteLine(ToString(allPersons));
         }
 
-        public virtual string ToString(List<Person> persons) {
+        public string ToString(List<Person> persons) {
             int age;
             string result = String.Empty;
             foreach (Person item in persons)
             {
-                age = (DateTime.Now - item.birthYear).Days / 365;
-                result += (item.Name + ' ' + item.BirtYear + ' ' + age + '\n').ToString();
+                age = (DateTime.Now - item._birthYear).Days / 365;
+                result += item.Name + ' ' + item.BirtYear + ' ' + age + '\n';
             }
             return result;
         }
