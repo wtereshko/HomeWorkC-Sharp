@@ -10,18 +10,20 @@ namespace MyHomeWork
     {
         static void Main(string[] args)
         {
-            Person person = new Person();
-            person.CreatePersonData();
-            Console.ReadKey();
-            person.CalculateAge();
-            Console.ReadKey();
-            person.ChangeName();
-            Console.ReadKey();
-            person.Input();
-            Console.ReadKey();
-            person.Output();
-            Console.ReadKey();
-            person.Equal();
+            HomeWork3.HW3();
+            //CreateIDeveloperData();
+            //Person person = new Person();
+            //person.CreatePersonData();
+            //Console.ReadKey();
+            //person.CalculateAge();
+            //Console.ReadKey();
+            //person.ChangeName();
+            //Console.ReadKey();
+            //person.Input();
+            //Console.ReadKey();
+            //person.Output();
+            //Console.ReadKey();
+            //person.Equal();
             //Console.WriteLine("Choose your Home Work. Enter number home work number");
             //int someChoice;
             //if (Int32.TryParse(Console.ReadLine(), out someChoice))
@@ -42,8 +44,18 @@ namespace MyHomeWork
             Console.ReadKey();
         }
 
-        private void CreateIDeveloperData() {
-
+        private static void CreateIDeveloperData() {
+            Programmer programmer = new Programmer();
+            programmer.Tool = "Programmer Tool";
+            Builder builder = new Builder();
+            builder.Tool = "Builder Tool";
+            List<IDeveloper> developers = new List<IDeveloper>();
+            developers.Add(builder);
+            developers.Add(programmer);
+            programmer.Create();
+            programmer.Destroy();
+            builder.Create();
+            builder.Destroy();
         }
     }
 }

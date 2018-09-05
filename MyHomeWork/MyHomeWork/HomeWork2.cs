@@ -3,19 +3,7 @@ using System.Globalization;
 
 namespace MyHomeWork
 {
-
-    /*1) read 3 float numbers and check: are they all belong to the range [-5,5].
-
-    2) read 3 integers and write max and min of them.
-
-    3) read number of HTTP Error (400, 401,402, ...) and write the name of this error 
-    (Declare enum HTTPError)
-
-    4) declare struct Dog with fields Name, Mark, Age. 
-    Declare variable myDog of Dog type and read values for it. Output myDos into console. 
-    (Declare method ToString in struct)
-            */
-    enum HttpError
+   public enum HttpError
     {
         BadRequest = 400,
         Unauthorized = 401,
@@ -24,16 +12,15 @@ namespace MyHomeWork
         NotFound = 404
     }
 
-    class HomeWork2
+   public class HomeWork2
     {
         public static void HW2() {
             Console.WriteLine("Choose your subtask. Enter number 1, 2, 3 or 4");
             int someChoice;
             Int32.TryParse(Console.ReadLine(), out someChoice);
-            switch (someChoice)
-            {
+            switch (someChoice) {
                 case 1:
-                    CheckRangeNumbers();                    
+                    CheckRangeNumbers();
                     break;
                 case 2:
                     FindMaxMinValue();
@@ -42,13 +29,13 @@ namespace MyHomeWork
                     ReadHttpError();
                     break;
                 case 4:
-                    RegistersDog();
+                    CreateDog();
                     break;
             }
         }
-
+        
+        /*1) read 3 float numbers and check: are they all belong to the range [-5,5].*/
         private static void CheckRangeNumbers() {
-            bool result = false;
             string notInRange = String.Empty;
             string inRange = String.Empty;
             float number;
@@ -64,14 +51,8 @@ namespace MyHomeWork
                         else {
                             notInRange += number.ToString(CultureInfo.CurrentCulture) + ' ';
                         }
-
-                        result = true;
                     }
                 }
-            }
-
-            if (!result) {
-                Console.WriteLine("Entered incorrect data");
             }
 
             if (!String.IsNullOrEmpty(inRange)) {
@@ -83,6 +64,7 @@ namespace MyHomeWork
             }
         }
 
+        /*2) read 3 integers and write max and min of them.*/
         private static void FindMaxMinValue() {
             bool result = false;
             int maxValue = 0;
@@ -113,6 +95,8 @@ namespace MyHomeWork
 
         }
 
+        /*3) read number of HTTP Error (400, 401,402, ...) and write the name of this error 
+        (Declare enum HTTPError)*/
         private static void ReadHttpError() {
             int httpCode;
             Console.WriteLine("Enter Http Error Code");
@@ -136,7 +120,7 @@ namespace MyHomeWork
             }
         }
 
-        private static void RegistersDog() {
+        private static void CreateDog() {
             bool result = false;
             Dog myDog = new Dog();
             int age;
@@ -156,16 +140,23 @@ namespace MyHomeWork
                     Console.WriteLine("Entered incorrect data. Try again");
                 }
             }
-            Console.WriteLine("Dog with name {0}, mark {1}, age {2}, are registered",
-                myDog.Name, myDog.Mark, myDog.Age);
+
+            Console.WriteLine(myDog.ToString());
         }
     }
 
-    struct Dog
+    /*4) declare struct Dog with fields Name, Mark, Age. 
+    Declare variable myDog of Dog type and read values for it. Output myDos into console. 
+    (Declare method ToString in struct)*/
+    public struct Dog
     {
         public string Name;
         public string Mark;
         public int Age;
+
+        public override string ToString() {
+            return String.Format("Dog with name {0}, mark {1}, age {2}, created", Name, Mark, Age);
+        }
     }
 }
 

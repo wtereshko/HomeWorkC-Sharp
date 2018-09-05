@@ -86,7 +86,7 @@ Find and output information about Persons with the same names (use ==)
             Person person = new Person();
             Console.WriteLine("Enter Person Name");
             person._name = Console.ReadLine();
-            Console.WriteLine("Enter Person BirthYear");
+            Console.WriteLine("Enter Person BirthDate");
             person._birthYear = Convert.ToDateTime(Console.ReadLine());
             allPersons.Add(person);
         }
