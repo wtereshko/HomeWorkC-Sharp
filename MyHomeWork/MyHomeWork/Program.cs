@@ -13,10 +13,12 @@ namespace MyHomeWork
        private static List<Shape> shapes = new List<Shape>();
 
         static void Main(string[] args) {
-            SomeLinqueTask();
+            
+            HomeWork6.PhoneBooks();
+
             //HomeWork6.PhoneBooks();
-           // HomeWork5_Collection();
-;            //Person person = new Person();
+            // HomeWork5_Collection();
+             //Person person = new Person();
             //person.CreatePersonData();
             //Console.ReadKey();
             //person.CalculateAge();
@@ -129,6 +131,25 @@ namespace MyHomeWork
             }
         }
 
+        private static void GetMaxShapePerimetr() {
+            CreateShapeData();
+            string name = String.Empty;
+            double max = 0;
+            foreach (Shape item in shapes) {
+                name = item.Perimeter() > max ? item.Name : String.Empty;
+                max = item.Perimeter();
+            }
+            Console.WriteLine(name);
+            Console.ReadKey();
+        }
+
+        private static void SortShapeArea()
+        {
+            CreateShapeData();
+            shapes.Sort();
+            
+        }
+
 
 
         #endregion
@@ -162,6 +183,7 @@ namespace MyHomeWork
 
             foreach (var item in name) {
                 shapeText += item.Name + "\n";
+                //shapes.Remove(item);
             }
 
 
@@ -172,7 +194,7 @@ namespace MyHomeWork
             }
             else
             {
-                File.WriteAllText((directory + @"\\Phones.txt"), shapeText);
+                File.WriteAllText((directory + @"\\shapes.txt"), shapeText);
             }
             
         }

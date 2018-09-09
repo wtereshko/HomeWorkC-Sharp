@@ -34,18 +34,56 @@ namespace MyHomeWork
             string[] phoneData = File.ReadAllLines(directory + @"\\phones.txt");
             foreach (string item in phoneData) {
                 string[] data = item.Split(' ');
-                phoneBook.Add(data[0], data[1]);
+                phoneBook.Add(data[1], data[0]);
                 onlyNumbers += (data[0] + '\n');
             }
+            try {
+                if (!File.Exists(directory + @"\\OnlyPhones.txt"))
+                {
+                    File.CreateText(directory + @"\\OnlyPhones.txt");
+                    File.WriteAllText((directory + @"\\OnlyPhones.txt"), onlyNumbers);
 
-            if (!File.Exists(directory + @"\\Phones.txt")) {
-                File.CreateText(directory + @"\\Phones.txt");
-                File.WriteAllText((directory + @"\\Phones.txt"), onlyNumbers);
+                }
+                else
+                {
+                    File.WriteAllText((directory + @"\\OnlyPhones.txt"), onlyNumbers);
+                }
+            }
+            catch (Exception e) {
+                Console.WriteLine(e);
+            }
+            
+
+            FindPhoneNumberByName();
+        }
+
+        public static void FindPhoneNumberByName() {
+            Console.WriteLine("Entered Name");
+            string name = Console.ReadLine();
+            Console.WriteLine(phoneBook[name]);
+        }
+
+        public static void ChangePhoneNumber()
+        {
+            string directory = Directory.GetCurrentDirectory();
+            string newFormat = String.Empty;
+            foreach (var item in phoneBook) {
+                if (item.Value.StartsWith("8")) {
+                    newFormat += "+3" + item.Value + "\n";
+                }
+                else { newFormat += item.Value + "\n"; }
+            }
+            if (!File.Exists(directory + @"\\New.txt"))
+            {
+                File.CreateText(directory + @"\\New.txt");
+                File.WriteAllText((directory + @"\\New.txt"), newFormat);
 
             }
-            else {
-                File.WriteAllText((directory + @"\\Phones.txt"), onlyNumbers);
+            else
+            {
+                File.WriteAllText((directory + @"\\New.txt"), newFormat);
             }
         }
+
     }
 }
