@@ -9,7 +9,8 @@ namespace MyHomeWork
     class Program
     {
         static void Main(string[] args) {
-            HomeWork5_Collection();
+            HomeWork6.PhoneBooks();
+           // HomeWork5_Collection();
 ;            //Person person = new Person();
             //person.CreatePersonData();
             //Console.ReadKey();

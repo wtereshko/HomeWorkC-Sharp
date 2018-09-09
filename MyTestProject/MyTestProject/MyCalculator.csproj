@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{922C5CB3-7A69-4613-AB1D-647110351BD6}</ProjectGuid>
+    <ProjectGuid>{411C91B8-04E2-4069-8A23-57F90FEFF065}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MyHomeWork</RootNamespace>
-    <AssemblyName>MyHomeWork</AssemblyName>
+    <RootNamespace>MyTestProject</RootNamespace>
+    <AssemblyName>MyTestProject</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,16 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builder.cs" />
-    <Compile Include="HomeWork1.cs" />
-    <Compile Include="HomeWork2.cs" />
-    <Compile Include="HomeWork3.cs" />
-    <Compile Include="HomeWork6.cs" />
-    <Compile Include="IDeveloper.cs" />
-    <Compile Include="IPerson.cs" />
-    <Compile Include="Person.cs" />
+    <Compile Include="Calculator.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Programmer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
