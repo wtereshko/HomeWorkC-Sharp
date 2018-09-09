@@ -27,7 +27,7 @@ Find and output information about Persons with the same names (use ==)
         #region Fields
 
         private string _name;
-        private DateTime _birthYear;
+        private DateTime _birthDate;
         private List<Person> allPersons = new List<Person>();
 
         #endregion Fields
@@ -39,7 +39,7 @@ Find and output information about Persons with the same names (use ==)
         public Person(string cname, DateTime cbirtYear)
         {
             _name = cname;
-            _birthYear = cbirtYear;
+            _birthDate = cbirtYear;
         }
 
         #endregion
@@ -50,9 +50,9 @@ Find and output information about Persons with the same names (use ==)
         {
             get { return _name; } 
         }
-        public DateTime BirtYear
+        public DateTime BirtDate
         {
-            get { return _birthYear; }
+            get { return _birthDate; }
         }
 
         #endregion
@@ -66,7 +66,7 @@ Find and output information about Persons with the same names (use ==)
                 Console.WriteLine("Enter Person Name");
                 person._name = Console.ReadLine();
                 Console.WriteLine("Enter Person BirthYear");
-                person._birthYear = Convert.ToDateTime(Console.ReadLine());
+                person._birthDate = Convert.ToDateTime(Console.ReadLine());
                 allPersons.Add(person);
                 count++;
             }
@@ -76,8 +76,8 @@ Find and output information about Persons with the same names (use ==)
             int age;
             string personsData = String.Empty;
             foreach (Person item in allPersons) {
-                age = (DateTime.Now - item._birthYear).Days / 365;
-                personsData += item.Name + ' ' + item.BirtYear + ' ' + age + '\n';
+                age = (DateTime.Now - item._birthDate).Days / 365;
+                personsData += item.Name + ' ' + item.BirtDate + ' ' + age + '\n';
             }
             Console.WriteLine(personsData);
         }
@@ -87,7 +87,7 @@ Find and output information about Persons with the same names (use ==)
             Console.WriteLine("Enter Person Name");
             person._name = Console.ReadLine();
             Console.WriteLine("Enter Person BirthDate");
-            person._birthYear = Convert.ToDateTime(Console.ReadLine());
+            person._birthDate = Convert.ToDateTime(Console.ReadLine());
             allPersons.Add(person);
         }
 
@@ -95,11 +95,11 @@ Find and output information about Persons with the same names (use ==)
             int age;
             foreach (Person item in allPersons)
             {
-                age = (DateTime.Now - item._birthYear).Days / 365;
+                age = (DateTime.Now - item._birthDate).Days / 365;
                 if (age < 16) {
                     item._name += " Very Young";
                 }
-               }
+             }
         }
 
         public void Output() {
@@ -111,8 +111,8 @@ Find and output information about Persons with the same names (use ==)
             string result = String.Empty;
             foreach (Person item in persons)
             {
-                age = (DateTime.Now - item._birthYear).Days / 365;
-                result += item.Name + ' ' + item.BirtYear + ' ' + age + '\n';
+                age = (DateTime.Now - item._birthDate).Days / 365;
+                result += item.Name + ' ' + item.BirtDate + ' ' + age + '\n';
             }
             return result;
         }
@@ -122,7 +122,7 @@ Find and output information about Persons with the same names (use ==)
             foreach (Person item in allPersons) {
                 for (int i = 0; i < allPersons.Count; i++) {
                     if (item.Name == allPersons[i].Name &&
-                        item.BirtYear != allPersons[i].BirtYear) {
+                        item.BirtDate != allPersons[i].BirtDate) {
                             listPersons.Add(allPersons[i]);
                     }
                 }

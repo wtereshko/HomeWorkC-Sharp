@@ -6,7 +6,11 @@ namespace MyHomeWork
 
     {
         private string _language;
-        public string Tool { get; set; }
+        public string Tool
+        {
+            get { return _language;}
+            set { _language = value; }
+        }
         public void Create() {
             Console.WriteLine("Method Create of the class Programmer");
         }
