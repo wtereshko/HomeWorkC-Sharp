@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyHomeWork.HomeWorkAbstractClass;
 
 namespace MyHomeWork
 {
     class Program
     {
+       private static List<Shape> shapes = new List<Shape>();
+
         static void Main(string[] args) {
-            HomeWork6.PhoneBooks();
+            SomeLinqueTask();
+            //HomeWork6.PhoneBooks();
            // HomeWork5_Collection();
 ;            //Person person = new Person();
             //person.CreatePersonData();
@@ -42,6 +47,8 @@ namespace MyHomeWork
             //}
             Console.ReadKey();
         }
+
+        #region HomeWork5
 
         private static void CreateIDeveloperData() {
             List<IDeveloper> developers = new List<IDeveloper>();
@@ -96,6 +103,82 @@ namespace MyHomeWork
                 }
             }
         }
+        #endregion
+
+        #region HomeWork7
+        /*In Main() create list of Shape, then ask user to enter data of 10 different shapes.  Write name, area 
+            and perimeter of all shapes. 
+            b) Find shape with the largest perimeter and print its name. 
+            3) Sort shapes by area and print obtained list (Remember about IComparable)*/
+        private static void CreateShapeData() {
+            
+            int count = 0;
+            Console.WriteLine("Enter data of 10 different shapes. Name and lenght though a space");           
+            while (count < 2) {
+                string enteredData = Console.ReadLine();
+                string[] text = enteredData.Split(' ');
+                if (text[0].Contains("Square")) {
+                    Square square = new Square(text[0], double.Parse(text[1]));
+                    shapes.Add(square);
+                }
+                else {
+                    Circle circle = new Circle(text[0], double.Parse(text[1]));
+                    shapes.Add(circle);
+                }
+                count++;
+            }
+        }
+
+
+
+        #endregion
+
+        #region HomeWork8
+        /*Create Console Application project.
+        Use classes Shape, Circle, Square from your previous homework.
+        Use Linq and string functions to complete next tasks:
+        1) Create list of Shape and fill it with 6 different shapes (Circle and Square).
+        2) Find and write into the file shapes with area from range [10,100]
+        3) Find and write into the file shapes which name contains letter 'a'
+        4) Find and remove from the list all shapes with perimeter less then 5. Write resulted list into Console 
+        */
+        private static void SomeLinqueTask() {
+            CreateShapeData();
+            string directory = Directory.GetCurrentDirectory();
+
+            string shapeText = String.Empty;
+
+            IEnumerable<Shape> name = from s in shapes
+                where (s.Name.Contains('a'))
+                select s;
+
+            IEnumerable<Shape> range = from s in shapes
+                where (s.Area() > 10 && s.Area() < 100)
+                select s;
+
+            IEnumerable<Shape> perimetr = from s in shapes
+                where (s.Area() < 5)
+                select s;
+
+            foreach (var item in name) {
+                shapeText += item.Name + "\n";
+            }
+
+
+            if (!File.Exists(directory + @"\\shapes.txt"))
+            {
+                File.CreateText(directory + @"\\shapes.txt");
+                File.WriteAllText((directory + @"\\shapes.txt"), shapeText);
+            }
+            else
+            {
+                File.WriteAllText((directory + @"\\Phones.txt"), shapeText);
+            }
+            
+        }
+
+
+        #endregion
     }
 }
 
