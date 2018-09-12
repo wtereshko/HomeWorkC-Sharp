@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PersonTest
 {
-    class Person: IPerson
+    public class Person: IPerson
     {
         #region Fields
 

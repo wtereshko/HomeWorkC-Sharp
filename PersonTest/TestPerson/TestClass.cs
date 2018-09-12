@@ -1,9 +1,5 @@
 ﻿using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace TestPerson
 {
@@ -11,9 +7,11 @@ namespace TestPerson
     public class TestClass
     {
         [Test]
-        public void TestMethod()
+        public void TestToString()
         {
-            // TODO: Add your test code here
+         Person   
+            
+
             Assert.Pass("Your first passing test");
         }
     }
