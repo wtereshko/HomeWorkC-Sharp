@@ -52,8 +52,8 @@ namespace MyHomeWork
             catch (Exception e) {
                 Console.WriteLine(e);
             }
-            
 
+            ChangePhoneNumber();
             FindPhoneNumberByName();
         }
 
