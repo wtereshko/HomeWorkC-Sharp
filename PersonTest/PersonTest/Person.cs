@@ -63,7 +63,7 @@ namespace PersonTest
             foreach (Person item in allPersons)
             {
                 age = (DateTime.Now - item.birthDate).Days / 365;
-                personsData += item.Name + ' ' + item.BirtDate.Date + ' ' + age + '\n';
+                personsData += item.Name + ' ' + item.BirtDate.ToString("yyyy-MM-dd") + ' ' + age + '\n';
             }
             Console.WriteLine(personsData);
         }
@@ -103,7 +103,7 @@ namespace PersonTest
             foreach (Person item in persons)
             {
                 age = (DateTime.Now - item.birthDate).Days / 365;
-                result += item.Name + ' ' + item.BirtDate.Date + ' ' + age + '\n';
+                result += item.Name + ' ' + item.BirtDate.ToString("yyyy-MM-dd") + ' ' + age + '\n';
             }
             return result;
         }
@@ -111,7 +111,7 @@ namespace PersonTest
         public static string ToString(Person person)
         {
             int age = (DateTime.Now - person.birthDate).Days / 365;
-            return person.Name + ' ' + person.BirtDate.Date + ' ' + age + '\n';         
+            return person.Name + ' ' + person.BirtDate.ToString("yyyy-MM-dd") + ' ' + age + '\n';         
         }
 
         public void Equal()
