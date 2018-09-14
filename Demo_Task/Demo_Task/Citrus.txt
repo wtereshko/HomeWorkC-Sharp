@@ -1,0 +1,3 @@
+Kivi Green 0,55
+Lemon Yellow 0,98
+Mandarin Orange 0,76

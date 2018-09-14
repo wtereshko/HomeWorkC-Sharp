@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<ArrayOfFruit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Fruit>
+    <Name>dgd</Name>
+    <Colour>fdf</Colour>
+  </Fruit>
+  <Fruit>
+    <Name>Apple</Name>
+    <Colour>Red</Colour>
+  </Fruit>
+  <Fruit>
+    <Name>Banana</Name>
+    <Colour>Yellow</Colour>
+  </Fruit>
+  <Fruit>
+    <Name>Pineapple</Name>
+    <Colour>Yellow</Colour>
+  </Fruit>
+  <Fruit xsi:type="Citrus">
+    <Name>sfs</Name>
+    <Colour>gfg</Colour>
+    <AmountCVitamine>6</AmountCVitamine>
+  </Fruit>
+  <Fruit xsi:type="Citrus">
+    <Name>Kivi</Name>
+    <Colour>Green</Colour>
+    <AmountCVitamine>0.55</AmountCVitamine>
+  </Fruit>
+  <Fruit xsi:type="Citrus">
+    <Name>Lemon</Name>
+    <Colour>Yellow</Colour>
+    <AmountCVitamine>0.98</AmountCVitamine>
+  </Fruit>
+  <Fruit xsi:type="Citrus">
+    <Name>Mandarin</Name>
+    <Colour>Orange</Colour>
+    <AmountCVitamine>0.76</AmountCVitamine>
+  </Fruit>
+</ArrayOfFruit>
