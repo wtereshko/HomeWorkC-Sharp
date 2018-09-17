@@ -44,11 +44,20 @@
   <ItemGroup>
     <Compile Include="Citrus.cs" />
     <Compile Include="Fruit.cs" />
+    <Compile Include="FruitsHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Citrus.txt" />
+    <Content Include="Fruit.txt" />
+    <Content Include="FruitXMLFile.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SortedFruits.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

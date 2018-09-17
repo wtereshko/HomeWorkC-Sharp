@@ -1,8 +1,13 @@
 <?xml version="1.0"?>
 <ArrayOfFruit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Fruit>
-    <Name>dgd</Name>
-    <Colour>fdf</Colour>
+    <Name>Apple</Name>
+    <Colour>Yellow</Colour>
+  </Fruit>
+  <Fruit xsi:type="Citrus">
+    <Name>Orange</Name>
+    <Colour>Orange</Colour>
+    <AmountCVitamine>1.5</AmountCVitamine>
   </Fruit>
   <Fruit>
     <Name>Apple</Name>
@@ -17,23 +22,18 @@
     <Colour>Yellow</Colour>
   </Fruit>
   <Fruit xsi:type="Citrus">
-    <Name>sfs</Name>
-    <Colour>gfg</Colour>
-    <AmountCVitamine>6</AmountCVitamine>
-  </Fruit>
-  <Fruit xsi:type="Citrus">
-    <Name>Kivi</Name>
+    <Name>Pomelo</Name>
     <Colour>Green</Colour>
-    <AmountCVitamine>0.55</AmountCVitamine>
+    <AmountCVitamine>0.95</AmountCVitamine>
   </Fruit>
   <Fruit xsi:type="Citrus">
     <Name>Lemon</Name>
     <Colour>Yellow</Colour>
-    <AmountCVitamine>0.98</AmountCVitamine>
+    <AmountCVitamine>2.98</AmountCVitamine>
   </Fruit>
   <Fruit xsi:type="Citrus">
     <Name>Mandarin</Name>
     <Colour>Orange</Colour>
-    <AmountCVitamine>0.76</AmountCVitamine>
+    <AmountCVitamine>1.76</AmountCVitamine>
   </Fruit>
 </ArrayOfFruit>

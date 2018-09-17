@@ -1,18 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
 namespace Demo_Task
 {
-    /*1) Утворити клас Фрукт, який містить:
-- поля назва та колір, 
-- визначити конструктор з параметрами, 
-- віртуальні методи Input() та Print(), для зчитування даних з консолі та виведення даних на консоль, 
-а також перевантажити варіанти введення-виведення з файлу.
-- властивості для полів, 
-- перевизначити метод ToString(). 
-*/
+    /*Create a Fruit class that contains:
+    - field name and color,
+    - define the constructor with the parameters,
+    - virtual methods Input () and Print (), to read data from the console and output data to the console,
+    as well as overload I / O options from a file.
+    - properties for fields,
+    - redefine the ToString () method. */
+
     [XmlInclude(typeof(Citrus))]
     [Serializable]
     public class Fruit
@@ -64,22 +63,28 @@ namespace Demo_Task
             this.Colour = Console.ReadLine();
         }
 
-        public virtual void Input(string dataReader)
+        public virtual void Input(StreamReader reader)
         {
-            string[] readFruit = dataReader.Split(' ');
-            this.Name = readFruit[0];
-            this.Colour = readFruit[1];
+            string dataReader = reader?.ReadLine();
+            if (!String.IsNullOrEmpty(dataReader) && !String.IsNullOrWhiteSpace(dataReader))
+            {
+                string[] fruit = dataReader.Split(' ');
+                this.Name = fruit[0];
+                this.Colour = fruit[1];
+            }
         }
-        
 
         public virtual void Print()
         {
-            Console.WriteLine("Fruit {0} with color {1}", this.Name, this.Colour);
+            if (this.Name != null && this.Colour != null)
+            {
+                Console.WriteLine("Fruit {0} and it's colour {1}", this.Name, this.Colour);
+            }
         }
 
         public virtual void Print(StreamWriter writer)
         {
-         writer.WriteLine(ToString());
+            writer?.WriteLine(ToString());
         }
 
         public override string ToString()
