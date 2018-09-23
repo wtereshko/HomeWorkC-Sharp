@@ -1,13 +1,11 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
+using NUnit.Framework;
+
+using OpenQA.Selenium.Chrome;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Win32;
-using NUnit.Framework.Internal;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Support.UI;
 
 namespace HW_Automated
 {
@@ -47,7 +45,10 @@ namespace HW_Automated
             driver.FindElement(By.Id("input-city")).SendKeys(user.city);
             driver.FindElement(By.Id("input-postcode")).SendKeys(user.postCode);
             driver.FindElement(By.Id("input-country")).SendKeys(user.country);
-            
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            wait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.Id("input-country")), user.country));
+
             driver.FindElement(By.Id("input-zone")).SendKeys(user.region);
             driver.FindElement(By.Id("input-password")).SendKeys(user.password);
             driver.FindElement(By.Id("input-confirm")).SendKeys(user.password);
