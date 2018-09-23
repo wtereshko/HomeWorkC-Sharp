@@ -1,8 +1,8 @@
 ﻿{
   "Users": [{
       "firstName": "Petro",
-      "lastName": "Melnuk",
-      "email": "petr.melnuk@gmail.com",
+      "lastName": "Smiluk",
+      "email": "psmelnuk@gmail.com",
       "telephone": "+380971708095",
       "fax": "",
       "company": "SoftServe",
@@ -15,8 +15,8 @@
       "password": "qwert123!@#"
             }, {
       "firstName": "Oksana",
-      "lastName": "Ivanysa",
-      "email": "oksi.ivanysa@gmail.com",
+      "lastName": "Vesela",
+      "email": "oksi.ves@gmail.com",
       "telephone": "+380971569898",
       "fax": "+380986777777",
       "company": "SoftServe",
@@ -29,8 +29,8 @@
       "password": "12345qwert"
                },{
       "firstName": "Viktor",
-      "lastName": "Yama",
-      "email": "yama@gmail.com",
+      "lastName": "Dymanskiu",
+      "email": "homews@gmail.com",
       "telephone": "+380977788998",
       "fax": "",
       "company": "Svitoch",

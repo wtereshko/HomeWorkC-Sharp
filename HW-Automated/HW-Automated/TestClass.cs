@@ -131,7 +131,7 @@ namespace HW_Automated
         [Test ]
         public void Test_Edit_User()
         {
-            string expectedResult = " Success: Your account has been successfully updated.";
+            string expectedResult = "Success: Your account has been successfully updated.";
             string actualResult = String.Empty;
 
             //fill fields
@@ -149,11 +149,11 @@ namespace HW_Automated
             driver.FindElement(By.LinkText("Edit your account information")).Click();
 
             driver.FindElement(By.Id("input-firstname")).Clear();
-            driver.FindElement(By.Id("input-firstname")).SendKeys("New First Name");
+            driver.FindElement(By.Id("input-firstname")).SendKeys("NewVVV");
             driver.FindElement(By.Id("input-lastname")).Clear();
-            driver.FindElement(By.Id("input-lastname")).SendKeys("New Last Name");
+            driver.FindElement(By.Id("input-lastname")).SendKeys("NewLLL");
             driver.FindElement(By.Id("input-email")).Clear();
-            driver.FindElement(By.Id("input-email")).SendKeys("New@email.com");
+            driver.FindElement(By.Id("input-email")).SendKeys("some@gmail.com");
             driver.FindElement(By.Id("input-telephone")).Clear();
             driver.FindElement(By.Id("input-telephone")).SendKeys("+38000000");
             driver.FindElement(By.Id("input-fax")).Clear();
