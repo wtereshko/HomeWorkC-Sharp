@@ -1,15 +1,46 @@
 ﻿{
-  "firstName": "Petro",
-  "lastName": "Melnuk",
-  "email": "petr.melnuk@gmail.com",
-  "telephone": "+380971708095",
-  "fax": "",
-  "company": "SoftServe",
-  "address_1": "Antonovycha street",
-  "address_2": "",
-  "city": "Lviv",
-  "postCode": "79000",
-  "country": "Ukraine",
-  "region": "L'vivs'ka Oblast'",
-  "password": "qwert123!@#"
+  "Users": [{
+      "firstName": "Petro",
+      "lastName": "Melnuk",
+      "email": "petr.melnuk@gmail.com",
+      "telephone": "+380971708095",
+      "fax": "",
+      "company": "SoftServe",
+      "address_1": "Antonovycha, 5",
+      "address_2": "",
+      "city": "Lviv",
+      "postCode": "79000",
+      "country": "Ukraine",
+      "region": "L'vivs'ka Oblast'",
+      "password": "qwert123!@#"
+            }, {
+      "firstName": "Oksana",
+      "lastName": "Ivanysa",
+      "email": "oksi.ivanysa@gmail.com",
+      "telephone": "+380971569898",
+      "fax": "+380986777777",
+      "company": "SoftServe",
+      "address_1": "Stepana Banderu, 10",
+      "address_2": "",
+      "city": "Lviv",
+      "postCode": "79000",
+      "country": "Ukraine",
+      "region": "L'vivs'ka Oblast'",
+      "password": "12345qwert"
+               },{
+      "firstName": "Viktor",
+      "lastName": "Yama",
+      "email": "yama@gmail.com",
+      "telephone": "+380977788998",
+      "fax": "",
+      "company": "Svitoch",
+      "address_1": "Lublinska street",
+      "address_2": "Vuhovskoho, 18",
+      "city": "Lviv",
+      "postCode": "79000",
+      "country": "Ukraine",
+      "region": "L'vivs'ka Oblast'",
+      "password": "zxcvasdf"
+    }
+  ]
 }

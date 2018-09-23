@@ -1,21 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 
 
 public class UserData
 {
-    public static User GetUserData()
+    public static ListUsers GetUsersData()
     {
         string userData;
-        string path = "D:\\GitRepository\\HomeWorkC-Sharp\\HW-Automated\\Users.json";
+        string path = @"D:\GitRepository\HomeWorkC-Sharp\HW-Automated\HW-Automated\Users.json";
         using (StreamReader reader = new StreamReader(path))
         {
             userData = reader.ReadToEnd();
         }
 
-        User user = JsonConvert.DeserializeObject<User>(userData);
-        return user;
+        ListUsers users = JsonConvert.DeserializeObject<ListUsers>(userData);
+        return users;
     }
 
     public struct User
@@ -37,4 +38,8 @@ public class UserData
 
     }
 
+    public struct ListUsers
+    {
+        public User[] Users { get; set; }
+    }
 }
