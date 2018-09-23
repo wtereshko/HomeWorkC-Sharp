@@ -24,8 +24,8 @@ namespace HW_Automated
     public class TestClass
     {
         private IWebDriver driver;
-        private UserData.ListUsers users;
-        private UserData.User user;
+        private ListUsers users;
+        private User user;
 
         [OneTimeSetUp]
         public void CreateNecessaryObjects()

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
 
 
@@ -6,8 +7,10 @@ public class UserData
 {
     public static ListUsers GetUsersData()
     {
+        string folderPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("\\bin\\Debug", "");
+        string path = Path.Combine(folderPath, "Users.json");
         string userData;
-        string path = @"D:\GitRepository\HomeWorkC-Sharp\HW-Automated\HW-Automated\Users.json";
+
         using (StreamReader reader = new StreamReader(path))
         {
             userData = reader.ReadToEnd();
@@ -16,8 +19,9 @@ public class UserData
         ListUsers users = JsonConvert.DeserializeObject<ListUsers>(userData);
         return users;
     }
+}
 
-    public struct User
+public struct User
     {
         public string firstName;
         public string lastName;
@@ -40,4 +44,4 @@ public class UserData
     {
         public User[] Users { get; set; }
     }
-}
+
