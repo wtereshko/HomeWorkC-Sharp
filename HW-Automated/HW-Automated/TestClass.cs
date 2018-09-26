@@ -51,11 +51,11 @@ namespace HW_Automated
             switch (account)
             {
                 case MyAccount.Register:
-                    driver.FindElement(By.LinkText("Register")).Click();
+                    driver.FindElement(By.XPath("//a[contains(@href, '/register')]")).Click();
                     break;
 
                 case MyAccount.Login:
-                    driver.FindElement(By.LinkText("Login")).Click();
+                    driver.FindElement(By.XPath("//a[contains(@href, '/login')]")).Click();
                     break;
 
                 case MyAccount.MyAccount:
@@ -86,7 +86,7 @@ namespace HW_Automated
             string expectedResult = "Your Account Has Been Created!";
             string actualResult = String.Empty;
 
-            driver.Navigate().GoToUrl("http://atqc-shop.epizy.com/index.php?route=common/home");
+            driver.Navigate().GoToUrl("https://fierysky.000webhostapp.com/index.php?route=common/home");
             GetMyAccountOption(MyAccount.Register);
 
             //fill fields
