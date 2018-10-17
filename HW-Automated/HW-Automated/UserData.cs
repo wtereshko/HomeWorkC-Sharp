@@ -22,25 +22,25 @@ public class UserData
 }
 
 public struct User
-    {
-        public string firstName;
-        public string lastName;
-        public string email;
-        public string telephone;
-        public string fax;
+{
+    private string firstName;
+    private string lastName;
+    private string email;
+    private string telephone;
+    private string fax;
 
-        public string company;
-        public string address_1;
-        public string address_2;
-        public string city;
-        public string postCode;
-        public string country;
-        public string region;
-        public string password;
+    private string company;
+    private string address_1;
+    private string address_2;
+    private string city;
+    private string postCode;
+    private string country;
+    private string region;
+    private string password;
 
-    }
+}
 
-    public struct ListUsers
+public struct ListUsers
     {
         public User[] Users { get; set; }
     }

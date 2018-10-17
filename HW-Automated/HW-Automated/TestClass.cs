@@ -90,26 +90,26 @@ namespace HW_Automated
             GetMyAccountOption(MyAccount.Register);
 
             //fill fields
-            driver.FindElement(By.Id("input-firstname")).SendKeys(user.firstName);
-            driver.FindElement(By.Id("input-lastname")).SendKeys(user.lastName);
-            driver.FindElement(By.Id("input-email")).SendKeys(user.email);
-            driver.FindElement(By.Id("input-telephone")).SendKeys(user.telephone);
-            driver.FindElement(By.Id("input-fax")).SendKeys(user.fax);
-            driver.FindElement(By.Id("input-company")).SendKeys(user.company);
-            driver.FindElement(By.Id("input-address-1")).SendKeys(user.address_1);
-            driver.FindElement(By.Id("input-address-2")).SendKeys(user.address_2);
-            driver.FindElement(By.Id("input-city")).SendKeys(user.city);
-            driver.FindElement(By.Id("input-postcode")).SendKeys(user.postCode);
-            driver.FindElement(By.Id("input-country")).SendKeys(user.country);
+            //driver.FindElement(By.Id("input-firstname")).SendKeys(user.firstName);
+            //driver.FindElement(By.Id("input-lastname")).SendKeys(user.lastName);
+            //driver.FindElement(By.Id("input-email")).SendKeys(user.email);
+            //driver.FindElement(By.Id("input-telephone")).SendKeys(user.telephone);
+           // driver.FindElement(By.Id("input-fax")).SendKeys(user.fax);
+          //  driver.FindElement(By.Id("input-company")).SendKeys(user.company);
+          //  driver.FindElement(By.Id("input-address-1")).SendKeys(user.address_1);
+           // driver.FindElement(By.Id("input-address-2")).SendKeys(user.address_2);
+           // driver.FindElement(By.Id("input-city")).SendKeys(user.city);
+           // driver.FindElement(By.Id("input-postcode")).SendKeys(user.postCode);
+          //  driver.FindElement(By.Id("input-country")).SendKeys(user.country);
 
             // wait for entered region
-            WebDriverWait driverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            driverWait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.Id("input-country")),
-                        user.country));
+            //WebDriverWait driverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            //driverWait.Until(ExpectedConditions.TextToBePresentInElement(driver.FindElement(By.Id("input-country")),
+            //            user.country));
 
-            driver.FindElement(By.Id("input-zone")).SendKeys(user.region);
-            driver.FindElement(By.Id("input-password")).SendKeys(user.password);
-            driver.FindElement(By.Id("input-confirm")).SendKeys(user.password);
+          //  driver.FindElement(By.Id("input-zone")).SendKeys(user.region);
+            //driver.FindElement(By.Id("input-password")).SendKeys(user.password);
+            //driver.FindElement(By.Id("input-confirm")).SendKeys(user.password);
 
             //check Yes radio button
             IList<IWebElement> radioButton = driver.FindElements(By.Name("newsletter"));
@@ -128,46 +128,46 @@ namespace HW_Automated
             GetMyAccountOption(MyAccount.Logout);
         }
 
-        [Test ]
-        public void Test_Edit_User()
-        {
-            string expectedResult = "Success: Your account has been successfully updated.";
-            string actualResult = String.Empty;
+        //[Test ]
+        //public void Test_Edit_User()
+        //{
+        //    string expectedResult = "Success: Your account has been successfully updated.";
+        //    string actualResult = String.Empty;
 
-            //fill fields
-            driver.Navigate().GoToUrl("http://atqc-shop.epizy.com/index.php?route=common/home");
-            GetMyAccountOption(MyAccount.Login);
+        //    //fill fields
+        //    driver.Navigate().GoToUrl("http://atqc-shop.epizy.com/index.php?route=common/home");
+        //    GetMyAccountOption(MyAccount.Login);
 
-            // fill login fields
-            driver.FindElement(By.Id("input-email")).SendKeys(user.email);
-            driver.FindElement(By.Id("input-password")).SendKeys(user.password);
+        //    // fill login fields
+        //    driver.FindElement(By.Id("input-email")).SendKeys(user.email);
+        //    driver.FindElement(By.Id("input-password")).SendKeys(user.password);
 
-            // click button Login
-            driver.FindElement(By.CssSelector("input.btn.btn-primary")).Click();
+        //    // click button Login
+        //    driver.FindElement(By.CssSelector("input.btn.btn-primary")).Click();
 
-            //click edit account
-            driver.FindElement(By.LinkText("Edit your account information")).Click();
+        //    //click edit account
+        //    driver.FindElement(By.LinkText("Edit your account information")).Click();
 
-            driver.FindElement(By.Id("input-firstname")).Clear();
-            driver.FindElement(By.Id("input-firstname")).SendKeys("NewVVV");
-            driver.FindElement(By.Id("input-lastname")).Clear();
-            driver.FindElement(By.Id("input-lastname")).SendKeys("NewLLL");
-            driver.FindElement(By.Id("input-email")).Clear();
-            driver.FindElement(By.Id("input-email")).SendKeys("some@gmail.com");
-            driver.FindElement(By.Id("input-telephone")).Clear();
-            driver.FindElement(By.Id("input-telephone")).SendKeys("+38000000");
-            driver.FindElement(By.Id("input-fax")).Clear();
-            driver.FindElement(By.Id("input-fax")).SendKeys("+380000000");
+        //    driver.FindElement(By.Id("input-firstname")).Clear();
+        //    driver.FindElement(By.Id("input-firstname")).SendKeys("NewVVV");
+        //    driver.FindElement(By.Id("input-lastname")).Clear();
+        //    driver.FindElement(By.Id("input-lastname")).SendKeys("NewLLL");
+        //    driver.FindElement(By.Id("input-email")).Clear();
+        //    driver.FindElement(By.Id("input-email")).SendKeys("some@gmail.com");
+        //    driver.FindElement(By.Id("input-telephone")).Clear();
+        //    driver.FindElement(By.Id("input-telephone")).SendKeys("+38000000");
+        //    driver.FindElement(By.Id("input-fax")).Clear();
+        //    driver.FindElement(By.Id("input-fax")).SendKeys("+380000000");
 
-            // click button Continue
-            driver.FindElement(By.CssSelector("input.btn.btn-primary")).Click();
+        //    // click button Continue
+        //    driver.FindElement(By.CssSelector("input.btn.btn-primary")).Click();
 
-            actualResult = driver.FindElement(By.CssSelector("div.alert.alert-success")).Text;
+        //    actualResult = driver.FindElement(By.CssSelector("div.alert.alert-success")).Text;
 
-            Assert.AreEqual(expectedResult, actualResult);
+        //    Assert.AreEqual(expectedResult, actualResult);
 
-            GetMyAccountOption(MyAccount.Logout);
+        //    GetMyAccountOption(MyAccount.Logout);
 
-        }
+        //}
     }
 }
