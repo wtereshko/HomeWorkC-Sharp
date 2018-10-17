@@ -14,13 +14,13 @@ namespace WebServiceTest
         [OneTimeSetUp]
         public void Start()
         {
-            serviceRequests = GetRequests();
+            serviceRequests = GetAllRestRequests();
         }
 
         [Test, Order(1)]
         public void Test_Login()
         {
-            string [] request = BuildRequest(serviceRequests.content[1]);
+            string [] request = RequestBuilder(serviceRequests.content[1]);
             string fullUrl = String.Format(request[1], "admin", "qwerty");
             HttpWebResponse webResponse = GetResponse(request[0], fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));

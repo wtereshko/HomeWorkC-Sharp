@@ -11,7 +11,11 @@ namespace WebServiceTest
         private static string url = "http://localhost:8080";
         private static string reqType = "&reqtype=";
 
-        public static ServiceRequests GetRequests()
+        /// <summary>
+        /// Gets REST Requests from web service
+        /// </summary>
+        /// <returns></returns>
+        public static ServiceRequests GetAllRestRequests()
         {
            return GetPosibleServiceRequests(GetBody(GetResponse("GET", url)));
         }
@@ -21,7 +25,7 @@ namespace WebServiceTest
         /// </summary>
         /// <param name="requestData"></param>
         /// <returns></returns>
-        public static string[] BuildRequest(string requestData)
+        public static string[] RequestBuilder(string requestData)
         {
             string[] request = new string[2];
             StringBuilder stringBuilder = new StringBuilder();
