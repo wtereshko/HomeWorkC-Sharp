@@ -1,14 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace WebServiceTest
 {
     public class ServiceHelper
     {
-        public const string url = "http://localhost:8080";
+        private static string url = "http://localhost:8080";
         private static string reqType = "&reqtype=";
+
+        public static ServiceRequests GetRequests()
+        {
+           return GetPosibleServiceRequests(GetBody(GetResponse("GET", url)));
+        }
 
         /// <summary>
         /// Create request and return array strings with request url and HTTP Method
@@ -18,32 +24,25 @@ namespace WebServiceTest
         public static string[] BuildRequest(string requestData)
         {
             string[] request = new string[2];
-            string parametrs = String.Empty;
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append(url);
             string[] parseStrings = requestData.Split(',');
-            string method = parseStrings[0].Replace("URL=", "");
+            stringBuilder.Append(parseStrings[0].Replace("URL=", ""));
             request[0] = parseStrings[1].Split(' ')[1].Replace("method=", "");
-            string reqTypeMethod = reqType + parseStrings[1].Split(' ')[2];
+
             if (parseStrings.Length > 2)
             {
-                parametrs = "?" + parseStrings[2].Replace("PARAMETERS= ", "") + "={0}";
+               stringBuilder.Append("?" + parseStrings[2].Replace("PARAMETERS= ", "") + "={0}");
                 if (parseStrings.Length > 3)
                 {
                     for (int i = 3; i < parseStrings.Length; i++)
                     {
                         int index = i - 2;
-                        parametrs += "&" + parseStrings[i] + "={" + index + "}";
+                        stringBuilder.Append("&" + parseStrings[i] + "={" + index + "}");
                     }
                 }
             }
-
-            if (!String.IsNullOrEmpty(parametrs))
-            {
-                request[1] = String.Concat(url, method, parametrs, reqTypeMethod).Replace(" ", "");
-            }
-            else
-            {
-                request[1] = String.Concat(url, method, reqTypeMethod).Replace(" ", "");
-            }
+            request[1] = stringBuilder.Append(reqType + parseStrings[1].Split(' ')[2]).Replace(" ", "").ToString();
 
             return request;
         }

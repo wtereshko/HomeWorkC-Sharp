@@ -14,7 +14,7 @@ namespace WebServiceTest
         [OneTimeSetUp]
         public void Start()
         {
-         serviceRequests = GetPosibleServiceRequests(GetBody(GetResponse("GET", url)));
+            serviceRequests = GetRequests();
         }
 
         [Test, Order(1)]
