@@ -60,17 +60,5 @@ namespace WebServiceTest
             token = serviceResponse.content;
             Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
         }
-
-        [Test, Order(1)]
-        public void Test_Login()
-        {
-            string[] request = RequestBuilder(serviceRequests.content[1]);
-            string fullUrl = String.Format(request[1], "admin", "qwerty");
-            HttpWebResponse webResponse = GetResponse(request[0], fullUrl);
-            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
-            token = serviceResponse.content;
-            Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
-        }
-
     }
 }
