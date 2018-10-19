@@ -7,8 +7,7 @@ namespace Run
         static void Main(string[] args)
         {
             ServiceHelper.GetAllRestRequests();
-            string some = ServiceHelper.FindRequest(
-                ServiceHelper.login, HttpMethod.POST);
+            string some = ServiceHelper.FindRequest(string.Concat(ServiceHelper.login, ServiceHelper.tockens), ServiceHelper.HttpMethod.POST);
         }
     }
 }

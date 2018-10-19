@@ -77,7 +77,7 @@ namespace WebServiceTest
         public static string FindRequest(string findParameter, HttpMethod httpMethod)
         {
             string[] strings = Array.FindAll(serviceRequests.content, s => s.Contains(findParameter));
-            return Array.Find(strings, s => s.Contains(httpMethod));
+            return Array.Find(strings, s => s.Contains(httpMethod.ToString()));
         }
 
 
@@ -121,7 +121,7 @@ namespace WebServiceTest
         public static HttpWebResponse GetResponse(HttpMethod httpMethod, string urlReqest)
         {
             HttpWebRequest webRequest = WebRequest.CreateHttp(urlReqest);
-            webRequest.Method = httpMethod;
+            webRequest.Method = httpMethod.ToString();
             HttpWebResponse webResponse = webRequest.GetResponse() as HttpWebResponse;
             return webResponse;
         }
