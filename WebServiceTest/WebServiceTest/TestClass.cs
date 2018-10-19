@@ -1,6 +1,8 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
 using static WebServiceTest.ServiceHelper;
 
 namespace WebServiceTest
@@ -55,8 +57,11 @@ namespace WebServiceTest
         {
             string [] request = RequestBuilder(serviceRequests.content[1]);
             string fullUrl = String.Format(request[1], "admin", "qwerty");
+            HttpClient httpClient = new HttpClient();
+           // httpClient.GetStringAsync(fullUrl);
             HttpWebResponse webResponse = GetResponse(request[0], fullUrl);
-            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            Task <string> s = await httpClient.GetStringAsync(fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(s);
             token = serviceResponse.content;
             Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
         }

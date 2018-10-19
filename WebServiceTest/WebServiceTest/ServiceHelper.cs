@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -8,6 +9,7 @@ namespace WebServiceTest
 {
     public class ServiceHelper
     {
+        private HttpClient httpClient = new HttpClient();
         private static string url = "http://localhost:8080";
         private static string reqType = "&reqtype=";
 
