@@ -9,6 +9,13 @@ namespace WebServiceTest
 {
     public class ServiceHelper
     {
+        public enum HttpMethod
+        {
+            DELETE,
+            GET,
+            POST,
+            PUT
+        }
         /*
      URL=/reset, method=GET resetServiceToInitialState",
      "URL=/login, method=POST login, PARAMETERS= name, password",
@@ -47,13 +54,11 @@ namespace WebServiceTest
         public const string tokenlifetime = "/tokenlifetime";
         public const string admins = "/admins";
         public const string users = "/users";
-        
-                    login/admins
-                    locked/admins
-                    login/users
+        public const string tockens = "/tockens";
+        public const string locked = "/locked";
+        public const string item = "/item";
+        public const string items = "/items";
 
-
-        private HttpClient httpClient = new HttpClient();
         private static ServiceRequests serviceRequests;
         private static string url = "http://localhost:8080";
         private static string reqType = "&reqtype=";
@@ -65,11 +70,11 @@ namespace WebServiceTest
         public static ServiceRequests GetAllRestRequests()
         {
 
-           serviceRequests = GetPosibleServiceRequests(GetBody(GetResponse("GET", url)));
+           serviceRequests = GetPosibleServiceRequests(GetBody(GetResponse(HttpMethod.GET, url)));
             return serviceRequests;
         }
 
-        public static string FindRequest(string findParameter, string httpMethod)
+        public static string FindRequest(string findParameter, HttpMethod httpMethod)
         {
             string[] strings = Array.FindAll(serviceRequests.content, s => s.Contains(findParameter));
             return Array.Find(strings, s => s.Contains(httpMethod));
@@ -113,10 +118,10 @@ namespace WebServiceTest
         /// <param name="urlReqest"></param>
         /// <param name="typeMethod"></param>
         /// <returns></returns>
-        public static HttpWebResponse GetResponse(string typeMethod, string urlReqest)
+        public static HttpWebResponse GetResponse(HttpMethod httpMethod, string urlReqest)
         {
             HttpWebRequest webRequest = WebRequest.CreateHttp(urlReqest);
-            webRequest.Method = typeMethod;
+            webRequest.Method = httpMethod;
             HttpWebResponse webResponse = webRequest.GetResponse() as HttpWebResponse;
             return webResponse;
         }

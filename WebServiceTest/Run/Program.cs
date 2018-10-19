@@ -7,7 +7,8 @@ namespace Run
         static void Main(string[] args)
         {
             ServiceHelper.GetAllRestRequests();
-            string some = ServiceHelper.FindRequest("locked", "POST");
+            string some = ServiceHelper.FindRequest(
+                ServiceHelper.login, HttpMethod.POST);
         }
     }
 }
