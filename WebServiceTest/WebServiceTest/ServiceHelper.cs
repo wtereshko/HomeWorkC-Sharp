@@ -7,15 +7,16 @@ using Newtonsoft.Json;
 
 namespace WebServiceTest
 {
+    public enum HttpMethod
+    {
+        DELETE,
+        GET,
+        POST,
+        PUT
+    }
+
     public class ServiceHelper
     {
-        public enum HttpMethod
-        {
-            DELETE,
-            GET,
-            POST,
-            PUT
-        }
         /*
      URL=/reset, method=GET resetServiceToInitialState",
      "URL=/login, method=POST login, PARAMETERS= name, password",
@@ -47,6 +48,7 @@ namespace WebServiceTest
      "URL=/itemindexes, method=GET getAllItemsIndexes, PARAMETERS= token",
      "URL=/item/{index}, method=GET getItem, PARAMETERS= token, index"]}
      */
+        #region Fields and Const
         public const string login = "/login";
         public const string logout = "/logout";
         public const string user = "/user";
@@ -62,16 +64,21 @@ namespace WebServiceTest
         private static ServiceRequests serviceRequests;
         private static string url = "http://localhost:8080";
         private static string reqType = "&reqtype=";
+        #endregion
 
+        #region Methods
+
+        #endregion
+
+        #region Public Methods
+        
         /// <summary>
         /// Gets REST Requests from web service
         /// </summary>
         /// <returns></returns>
-        public static ServiceRequests GetAllRestRequests()
+        public static void GetAllRestRequests()
         {
-
-           serviceRequests = GetPosibleServiceRequests(GetBody(GetResponse(HttpMethod.GET, url)));
-            return serviceRequests;
+            serviceRequests = GetPosibleServiceRequests(GetBody(GetResponse(HttpMethod.GET, url)));
         }
 
         public static string FindRequest(string findParameter, HttpMethod httpMethod)
@@ -86,30 +93,26 @@ namespace WebServiceTest
         /// </summary>
         /// <param name="requestData"></param>
         /// <returns></returns>
-        public static string[] RequestBuilder(string requestData)
+        public static string RequestBuilder(string requestData, params string[] ps)
         {
-            string[] request = new string[2];
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append(url);
             string[] parseStrings = requestData.Split(',');
             stringBuilder.Append(parseStrings[0].Replace("URL=", ""));
-            request[0] = parseStrings[1].Split(' ')[1].Replace("method=", "");
-
+            
             if (parseStrings.Length > 2)
             {
-               stringBuilder.Append("?" + parseStrings[2].Replace("PARAMETERS= ", "") + "={0}");
+               stringBuilder.Append("?" + parseStrings[2].Replace("PARAMETERS= ", "") + $"={ps[0]}");
                 if (parseStrings.Length > 3)
                 {
                     for (int i = 3; i < parseStrings.Length; i++)
                     {
                         int index = i - 2;
-                        stringBuilder.Append("&" + parseStrings[i] + "={" + index + "}");
+                        stringBuilder.Append("&" + parseStrings[i] + $"={ps[index]}");
                     }
                 }
             }
-            request[1] = stringBuilder.Append(reqType + parseStrings[1].Split(' ')[2]).Replace(" ", "").ToString();
-
-            return request;
+            return stringBuilder.Append(reqType + parseStrings[1].Split(' ')[2]).Replace(" ", "").ToString();
         }
 
         /// <summary>
@@ -159,6 +162,8 @@ namespace WebServiceTest
         {
             return JsonConvert.DeserializeObject<ServiceResponse>(body);
         }
+
+        #endregion
     }
 
     public struct ServiceRequests

@@ -43,27 +43,22 @@ namespace WebServiceTest
     [TestFixture]
     public class TestClass
     {
-        private ServiceRequests serviceRequests;
         private string token;
 
         [OneTimeSetUp]
         public void Start()
         {
-            serviceRequests = GetAllRestRequests();
+            GetAllRestRequests();
         }
 
-        //[Test, Order(1)]
-        //public void Test_Login()
-        //{
-        //    string [] request = RequestBuilder(serviceRequests.content[1]);
-        //    string fullUrl = String.Format(request[1], "admin", "qwerty");
-        //    HttpClient httpClient = new HttpClient();
-        //   // httpClient.GetStringAsync(fullUrl);
-        //    HttpWebResponse webResponse = GetResponse(request[0], fullUrl);
-        //    Task <string> s = await httpClient.GetStringAsync(fullUrl);
-        //    ServiceResponse serviceResponse = GetServiceResponse(s);
-        //    token = serviceResponse.content;
-        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
-        //}
+        [Test, Order(1)]
+        public void Test_Login()
+        {
+            string fullUrl = RequestBuilder(FindRequest(login, HttpMethod.POST), "admin", "qwerty");
+            HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            token = serviceResponse.content;
+            Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
+        }
     }
 }
