@@ -9,7 +9,52 @@ namespace WebServiceTest
 {
     public class ServiceHelper
     {
+        /*
+     URL=/reset, method=GET resetServiceToInitialState",
+     "URL=/login, method=POST login, PARAMETERS= name, password",
+     "URL=/logout, method=POST logout, PARAMETERS= name, token",
+     "URL=/user, method=PUT changePassword, PARAMETERS= token, oldPassword, newPassword",
+     "URL=/user, method=GET getUserName, PARAMETERS= token",
+     "URL=/cooldowntime, method=GET getCoolDownTime",
+     "URL=/tokenlifetime, method=GET getTokenLifeTime",
+     "URL=/cooldowntime, method=PUT setCoolDownTime, PARAMETERS= adminToken, newCoolDownTime",
+     "URL=/tokenlifetime, method=PUT setTokenLifeTime, PARAMETERS= adminToken, newTokenLifeTime",
+     "URL=/user, method=POST createUser, PARAMETERS= adminToken, newName, newPassword, adminRights",
+     "URL=/user, method=DELETE removeUser, PARAMETERS= adminToken, removedName",
+     "URL=/admins, method=GET getAllAdmins, PARAMETERS= adminToken",
+     "URL=/login/admins, method=GET getLoginedAdmins, PARAMETERS= adminToken",
+     "URL=/locked/admins, method=GET getLockedAdmins, PARAMETERS= adminToken",
+     "URL=/users, method=GET getAllUsers, PARAMETERS= adminToken",
+     "URL=/login/users, method=GET getLoginedUsers, PARAMETERS= adminToken",
+     "URL=/login/tockens, method=GET getAliveTockens, PARAMETERS= adminToken",
+     "URL=/locked/users, method=GET getLockedUsers, PARAMETERS= adminToken",
+     "URL=/locked/user/{name}, method=POST lockUser, PARAMETERS= adminToken, name",
+     "URL=/locked/user/{name}, method=PUT unlockUser, PARAMETERS= adminToken, name",
+     "URL=/locked/reset, method=PUT unlockAllUsers, PARAMETERS= adminToken",
+     "URL=/item/user/{name}, method=GET getUserItems, PARAMETERS= adminToken, name",
+     "URL=/item/{index}/user/{name}, method=GET getUserItem, PARAMETERS= adminToken, name, index",
+     "URL=/item/{index}, method=POST addItem, PARAMETERS= token, item, index",
+     "URL=/item/{index}, method=DELETE deleteItem, PARAMETERS= token, index",
+     "URL=/item/{index}, method=PUT updateItem, PARAMETERS= token, index, item",
+     "URL=/items, method=GET getAllItems, PARAMETERS= token",
+     "URL=/itemindexes, method=GET getAllItemsIndexes, PARAMETERS= token",
+     "URL=/item/{index}, method=GET getItem, PARAMETERS= token, index"]}
+     */
+        public const string login = "/login";
+        public const string logout = "/logout";
+        public const string user = "/user";
+        public const string cooldowntime = "/cooldowntime";
+        public const string tokenlifetime = "/tokenlifetime";
+        public const string admins = "/admins";
+        public const string users = "/users";
+        
+                    login/admins
+                    locked/admins
+                    login/users
+
+
         private HttpClient httpClient = new HttpClient();
+        private static ServiceRequests serviceRequests;
         private static string url = "http://localhost:8080";
         private static string reqType = "&reqtype=";
 
@@ -19,8 +64,17 @@ namespace WebServiceTest
         /// <returns></returns>
         public static ServiceRequests GetAllRestRequests()
         {
-           return GetPosibleServiceRequests(GetBody(GetResponse("GET", url)));
+
+           serviceRequests = GetPosibleServiceRequests(GetBody(GetResponse("GET", url)));
+            return serviceRequests;
         }
+
+        public static string FindRequest(string findParameter, string httpMethod)
+        {
+            string[] strings = Array.FindAll(serviceRequests.content, s => s.Contains(findParameter));
+            return Array.Find(strings, s => s.Contains(httpMethod));
+        }
+
 
         /// <summary>
         /// Create request and return array strings with request url and HTTP Method
