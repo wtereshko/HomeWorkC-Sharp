@@ -48,13 +48,13 @@ namespace WebServiceTest
         [OneTimeSetUp]
         public void Start()
         {
-            GetAllRestRequests();
+            InitRestRequest();
         }
 
         [Test, Order(1)]
         public void Test_Login()
         {
-            string fullUrl = RequestBuilder(FindRequest(login, HttpMethod.POST), "admin", "qwerty");
+            string fullUrl = UrlBuilder(FindRequest(login, HttpMethod.POST), "admin", "qwerty");
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             token = serviceResponse.content;

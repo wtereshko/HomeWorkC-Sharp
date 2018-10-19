@@ -6,9 +6,9 @@ namespace Run
     {
         static void Main(string[] args)
         {
-            ServiceHelper.GetAllRestRequests();
+            ServiceHelper.InitRestRequest();
             string some = ServiceHelper.FindRequest(ServiceHelper.login, HttpMethod.POST);
-            ServiceHelper.RequestBuilder(some, "admin", "qwerty");
+            ServiceHelper.UrlBuilder(some, "admin", "qwerty");
         }
     }
 }

@@ -73,27 +73,32 @@ namespace WebServiceTest
         #region Public Methods
         
         /// <summary>
-        /// Gets REST Requests from web service
+        /// Initialization REST Requests from web service
         /// </summary>
         /// <returns></returns>
-        public static void GetAllRestRequests()
+        public static void InitRestRequest()
         {
             serviceRequests = GetPosibleServiceRequests(GetBody(GetResponse(HttpMethod.GET, url)));
         }
 
+        /// <summary>
+        /// Find request in web service requests
+        /// </summary>
+        /// <param name="findParameter"></param>
+        /// <param name="httpMethod"></param>
+        /// <returns></returns>
         public static string FindRequest(string findParameter, HttpMethod httpMethod)
         {
             string[] strings = Array.FindAll(serviceRequests.content, s => s.Contains(findParameter));
             return Array.Find(strings, s => s.Contains(httpMethod.ToString()));
         }
 
-
         /// <summary>
-        /// Create request and return array strings with request url and HTTP Method
-        /// </summary>
+        /// Create url with parameters. Parameters should set in order  which they are set in url order.
+        ///  </summary>
         /// <param name="requestData"></param>
         /// <returns></returns>
-        public static string RequestBuilder(string requestData, params string[] ps)
+        public static string UrlBuilder(string requestData, params string[] parameters)
         {
             StringBuilder stringBuilder = new StringBuilder();
             stringBuilder.Append(url);
@@ -102,13 +107,13 @@ namespace WebServiceTest
             
             if (parseStrings.Length > 2)
             {
-               stringBuilder.Append("?" + parseStrings[2].Replace("PARAMETERS= ", "") + $"={ps[0]}");
+               stringBuilder.Append("?" + parseStrings[2].Replace("PARAMETERS= ", "") + $"={parameters[0]}");
                 if (parseStrings.Length > 3)
                 {
                     for (int i = 3; i < parseStrings.Length; i++)
                     {
                         int index = i - 2;
-                        stringBuilder.Append("&" + parseStrings[i] + $"={ps[index]}");
+                        stringBuilder.Append("&" + parseStrings[i] + $"={parameters[index]}");
                     }
                 }
             }
