@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net.Mime;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WebServiceTest
 {
@@ -55,7 +50,7 @@ namespace WebServiceTest
         /// </summary>
         /// <param name="message"></param>
         /// <param name="exception"></param>
-        public static void WriteWritingLogging(string message, Exception exception )
+        public static void WritingLogging(string message, Exception exception )
         {
             if (exception != null)
             {

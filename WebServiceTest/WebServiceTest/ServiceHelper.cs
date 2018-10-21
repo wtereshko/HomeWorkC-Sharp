@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 
@@ -17,37 +16,6 @@ namespace WebServiceTest
 
     public class ServiceHelper
     {
-        /*  
-	GET		http://localhost:8080/reset?reqtype=resetServiceToInitialState",   
-	POST	http://localhost:8080/login?name=admin&password=qwerty&reqtype=login,
-    POST    http://localhost:8080/logout?name= &token=&reqtype=logout,
-	PUT     http://localhost:8080/user?token= &oldPassword= &newPassword&reqtype=changePassword,    
-	GET     http://localhost:8080/user?token= &getUserName,    
-	GET     http://localhost:8080/cooldowntime?reqtype=getCoolDownTime,    
-	GET     http://localhost:8080/tokenlifetime?reqtype=getTokenLifeTime",	
-	PUT		http://localhost:8080/cooldowntime?adminToken= &newCoolDownTime= &reqtype=setCoolDownTime	
-	PUT		http://localhost:8080/tokenlifetime?adminToken= &newTokenLifeTime= &reqtype=setTokenLifeTime	
-	POST	http://localhost:8080/user?adminToken= &newName= &newPassword= &adminRights= &reqtype=
-	DELETE	http://localhost:8080/user?adminToken= &removedName= &reqtype=removeUser
-	GET		http://localhost:8080/admins?adminToken= &reqtype=getAllAdmins
-	GET		http://localhost:8080/login/admins?adminToken= &reqtype=getLoginedAdmins
-	GET		http://localhost:8080/locked/admins?adminToken= &reqtype=getLockedAdmins
-	GET		http://localhost:8080/users?adminToken= &reqtype=getAllUsers
-	GET		http://localhost:8080/login/users?adminToken= &reqtype=getLoginedUsers
-	GET		http://localhost:8080/login/tockens?adminToken= &reqtype=getAliveTockens
-	GET		http://localhost:8080/locked/users?adminToken= &reqtype=getLockedUsers
-	POST	http://localhost:8080/locked/user/{name}?adminToken= &name= &reqtype=lockUser
-	PUT		http://localhost:8080/locked/user/{name}?adminToken= &name= &reqtype=unlockUser
-	PUT		http://localhost:8080/locked/reset?adminToken= &reqtype=unlockAllUsers
-	GET		http://localhost:8080/item/user/{name}?adminToken = &name= &reqtype=getUserItems
-	GET		http://localhost:8080/item/{index}/user/{name}?adminToken= &name= &index= &reqtype=getUserItem
-	POST	http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem
-	DELETE	http://localhost:8080/item/{index}?token= &index= &reqtype=deleteItem
-	PUT		http://localhost:8080/item/{index}?token= &index= &item= &reqtype=updateItem
-	GET		http://localhost:8080/items?token= &reqtype=getAllItems
-	GET		http://localhost:8080/itemindexes?token= &reqtype=getAllItemsIndexes
-	GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
-     */
         #region Fields and Const
         public const string login = "/login";
         public const string logout = "/logout";
@@ -68,10 +36,6 @@ namespace WebServiceTest
         private static string reqType = "&reqtype=";
         #endregion
 
-        #region Methods
-
-        #endregion
-
         #region Public Methods
         
         /// <summary>
@@ -84,7 +48,8 @@ namespace WebServiceTest
         }
 
         /// <summary>
-        /// Find request in web service requests
+        /// Find request in web service requests. Parameters should set in order, which they are in url.
+        /// If url contains index, it's set after all parameters. 
         /// </summary>
         /// <param name="findParameter"></param>
         /// <param name="httpMethod"></param>
@@ -119,6 +84,12 @@ namespace WebServiceTest
                     }
                 }
             }
+
+            if (stringBuilder.ToString().Contains("{index}"))
+            {
+                stringBuilder.Replace("{index}", parameters[parameters.Length - 1]);
+            }
+
             return stringBuilder.Append(reqType + parseStrings[1].Split(' ')[2]).Replace(" ", "").ToString();
         }
 
