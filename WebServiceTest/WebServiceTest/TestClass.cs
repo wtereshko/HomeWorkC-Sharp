@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,58 +8,115 @@ using static WebServiceTest.ServiceHelper;
 
 namespace WebServiceTest
 {
-    /*
-     URL=/reset, method=GET resetServiceToInitialState",
-     "URL=/login, method=POST login, PARAMETERS= name, password",
-     "URL=/logout, method=POST logout, PARAMETERS= name, token",
-     "URL=/user, method=PUT changePassword, PARAMETERS= token, oldPassword, newPassword",
-     "URL=/user, method=GET getUserName, PARAMETERS= token",
-     "URL=/cooldowntime, method=GET getCoolDownTime",
-     "URL=/tokenlifetime, method=GET getTokenLifeTime",
-     "URL=/cooldowntime, method=PUT setCoolDownTime, PARAMETERS= adminToken, newCoolDownTime",
-     "URL=/tokenlifetime, method=PUT setTokenLifeTime, PARAMETERS= adminToken, newTokenLifeTime",
-     "URL=/user, method=POST createUser, PARAMETERS= adminToken, newName, newPassword, adminRights",
-     "URL=/user, method=DELETE removeUser, PARAMETERS= adminToken, removedName",
-     "URL=/admins, method=GET getAllAdmins, PARAMETERS= adminToken",
-     "URL=/login/admins, method=GET getLoginedAdmins, PARAMETERS= adminToken",
-     "URL=/locked/admins, method=GET getLockedAdmins, PARAMETERS= adminToken",
-     "URL=/users, method=GET getAllUsers, PARAMETERS= adminToken",
-     "URL=/login/users, method=GET getLoginedUsers, PARAMETERS= adminToken",
-     "URL=/login/tockens, method=GET getAliveTockens, PARAMETERS= adminToken",
-     "URL=/locked/users, method=GET getLockedUsers, PARAMETERS= adminToken",
-     "URL=/locked/user/{name}, method=POST lockUser, PARAMETERS= adminToken, name",
-     "URL=/locked/user/{name}, method=PUT unlockUser, PARAMETERS= adminToken, name",
-     "URL=/locked/reset, method=PUT unlockAllUsers, PARAMETERS= adminToken",
-     "URL=/item/user/{name}, method=GET getUserItems, PARAMETERS= adminToken, name",
-     "URL=/item/{index}/user/{name}, method=GET getUserItem, PARAMETERS= adminToken, name, index",
-     "URL=/item/{index}, method=POST addItem, PARAMETERS= token, item, index",
-     "URL=/item/{index}, method=DELETE deleteItem, PARAMETERS= token, index",
-     "URL=/item/{index}, method=PUT updateItem, PARAMETERS= token, index, item",
-     "URL=/items, method=GET getAllItems, PARAMETERS= token",
-     "URL=/itemindexes, method=GET getAllItemsIndexes, PARAMETERS= token",
-     "URL=/item/{index}, method=GET getItem, PARAMETERS= token, index"]}
-     */
-
+    /*  
+GET		http://localhost:8080/reset?reqtype=resetServiceToInitialState",   
+GET     http://localhost:8080/user?token= &getUserName,    
+GET     http://localhost:8080/cooldowntime?reqtype=getCoolDownTime,    
+GET     http://localhost:8080/tokenlifetime?reqtype=getTokenLifeTime",	
+PUT		http://localhost:8080/cooldowntime?adminToken= &newCoolDownTime= &reqtype=setCoolDownTime	
+PUT		http://localhost:8080/tokenlifetime?adminToken= &newTokenLifeTime= &reqtype=setTokenLifeTime	
+DELETE	http://localhost:8080/user?adminToken= &removedName= &reqtype=removeUser
+GET		http://localhost:8080/admins?adminToken= &reqtype=getAllAdmins
+GET		http://localhost:8080/login/admins?adminToken= &reqtype=getLoginedAdmins
+GET		http://localhost:8080/locked/admins?adminToken= &reqtype=getLockedAdmins
+GET		http://localhost:8080/users?adminToken= &reqtype=getAllUsers
+GET		http://localhost:8080/login/users?adminToken= &reqtype=getLoginedUsers
+GET		http://localhost:8080/login/tockens?adminToken= &reqtype=getAliveTockens
+GET		http://localhost:8080/locked/users?adminToken= &reqtype=getLockedUsers
+POST	http://localhost:8080/locked/user/{name}?adminToken= &name= &reqtype=lockUser
+PUT		http://localhost:8080/locked/user/{name}?adminToken= &name= &reqtype=unlockUser
+PUT		http://localhost:8080/locked/reset?adminToken= &reqtype=unlockAllUsers
+GET		http://localhost:8080/item/user/{name}?adminToken = &name= &reqtype=getUserItems
+GET		http://localhost:8080/item/{index}/user/{name}?adminToken= &name= &index= &reqtype=getUserItem
+POST	http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem
+DELETE	http://localhost:8080/item/{index}?token= &index= &reqtype=deleteItem
+PUT		http://localhost:8080/item/{index}?token= &index= &item= &reqtype=updateItem
+GET		http://localhost:8080/items?token= &reqtype=getAllItems
+GET		http://localhost:8080/itemindexes?token= &reqtype=getAllItemsIndexes
+GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
+ */
 
     [TestFixture]
     public class TestClass
     {
         private string token;
+        private Dictionary<string, string> usersToken;
 
         [OneTimeSetUp]
-        public void Start()
+        public void StartTest()
         {
+            LoggingLog.InitializationLogging();
+            LoggingLog.WriteWritingLogging("Beginning of tests", null);
             InitRestRequest();
         }
 
-        [Test, Order(1)]
-        public void Test_Login()
+        [OneTimeTearDown]
+        public void EndTest()
         {
-            string fullUrl = UrlBuilder(FindRequest(login, HttpMethod.POST), "admin", "qwerty");
+            LoggingLog.WriteWritingLogging("Ends of tests", null);
+            LoggingLog.Dispose();
+        }
+
+
+        // http://localhost:8080/login?name=admin&password=qwerty&reqtype=login
+        [Test, Order(1)]
+        public void Test_Admin_Login()
+        {
+            string fullUrl = UrlBuilder(FindRequest(login, HttpMethod.POST), adminLogin, adminPassword);
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             token = serviceResponse.content;
             Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
         }
+
+        //http://localhost:8080/logout?name= &token=&reqtype=logout,
+        //[Test]
+        //public void Test_Logout()
+        //{
+        //    string fullUrl = UrlBuilder(FindRequest(logout, HttpMethod.POST), adminLogin, token);
+        //    HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
+        //    ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, String.Format("Result logout is {0}", serviceResponse));
+        //}
+
+        //// http://localhost:8080/user?adminToken= &newName= &newPassword= &adminRights= &reqtype=createUser
+        [TestCase("Petro", "qazwsx")]
+        [TestCase("Oksana", "zxcasd")]
+        [TestCase("Viktoriya", "edcrfv")]
+        public void Test_Create_User(string userName, string userPassword)
+        {
+            string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.POST), token, userName, userPassword, "true");
+            HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            LoggingLog.WriteWritingLogging($"{webResponse.StatusCode} {serviceResponse.content}", null);
+            Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, $"Message from service {serviceResponse.content}");
+        }
+
+        [TestCase("Petro", "qazwsx")]
+        [TestCase("Oksana", "zxcasd")]
+        [TestCase("Viktoriya", "edcrfv")]
+        public void Test_User_Login(string userName, string userPassword)
+        {
+            string fullUrl = UrlBuilder(FindRequest(login, HttpMethod.POST), userName, userPassword);
+            HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            try
+            { usersToken.Add(userName, serviceResponse.content); }
+            catch (Exception exception)
+            {
+                LoggingLog.WriteWritingLogging("ex", exception);
+            }
+            
+            Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, serviceResponse.content);
+        }
+
+        //http://localhost:8080/user?token= &oldPassword= &newPassword&reqtype=changePassword,
+        //public void Test_Change_User_Paswword()
+        //{
+        //    string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.PUT), usersToken["Petro"], "qazwsx", "edcrfv");
+        //    HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
+        //    ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, serviceResponse.content);
+        //}
     }
 }
