@@ -75,7 +75,7 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             LoggingLog.WritingLogging($"Test logout: result = {serviceResponse.content}", null);
-            Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
+            Assert.AreEqual("true", webResponse.StatusCode);
         }
 
 
