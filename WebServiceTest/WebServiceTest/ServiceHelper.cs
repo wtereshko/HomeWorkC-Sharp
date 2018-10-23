@@ -88,6 +88,11 @@ namespace WebServiceTest
                 }
             }
 
+            if (stringBuilder.ToString().Contains("adminToken"))
+            {
+                stringBuilder.Replace("adminToken", "token");
+            }
+
             if (stringBuilder.ToString().Contains("{index}"))
             {
                 stringBuilder.Replace("{index}", parameters[parameters.Length - 1]);

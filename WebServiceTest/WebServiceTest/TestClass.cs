@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 using System.Collections.Generic;
 using System.Net;
 using static WebServiceTest.ServiceHelper;
@@ -16,13 +17,12 @@ DELETE	http://localhost:8080/user?adminToken= &removedName= &reqtype=removeUser
 GET		http://localhost:8080/admins?adminToken= &reqtype=getAllAdmins
 GET		http://localhost:8080/login/admins?adminToken= &reqtype=getLoginedAdmins
 GET		http://localhost:8080/locked/admins?adminToken= &reqtype=getLockedAdmins
-GET		http://localhost:8080/users?adminToken= &reqtype=getAllUsers
-GET		http://localhost:8080/login/users?adminToken= &reqtype=getLoginedUsers
 GET		http://localhost:8080/login/tockens?adminToken= &reqtype=getAliveTockens
 GET		http://localhost:8080/locked/users?adminToken= &reqtype=getLockedUsers
 POST	http://localhost:8080/locked/user/{name}?adminToken= &name= &reqtype=lockUser
 PUT		http://localhost:8080/locked/user/{name}?adminToken= &name= &reqtype=unlockUser
 PUT		http://localhost:8080/locked/reset?adminToken= &reqtype=unlockAllUsers
+
 GET		http://localhost:8080/item/user/{name}?adminToken = &name= &reqtype=getUserItems
 GET		http://localhost:8080/item/{index}/user/{name}?adminToken= &name= &index= &reqtype=getUserItem
 DELETE	http://localhost:8080/item/{index}?token= &index= &reqtype=deleteItem
@@ -54,10 +54,11 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             LoggingLog.Dispose();
         }
 
-
+        #region Tests User Data
+                    
         // http://localhost:8080/login?name=admin&password=qwerty&reqtype=login
         [Test, Order(1)]
-        public void Test_Admin_Login()
+        public void TestAdminLogin()
         {
             string fullUrl = UrlBuilder(FindRequest(login, HttpMethod.POST), adminLogin, adminPassword);
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
@@ -67,21 +68,9 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
         }
 
-        //http://localhost:8080/logout?name= &token=&reqtype=logout,
-        [Test]
-        public void Test_Logout()
-        {
-            string fullUrl = UrlBuilder(FindRequest(logout, HttpMethod.POST), adminLogin, token);
-            HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
-            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
-            LoggingLog.WritingLogging($"Test logout: result = {serviceResponse.content}", null);
-            Assert.AreEqual("true", serviceResponse.content);
-        }
-
-
         // http://localhost:8080/user?token= &reqtype=getUserName, 
         [Test]
-        public void Test_Get_User_Name()
+        public void TestGetUserName()
         {
             string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.GET), token);
             HttpWebResponse webResponse = GetResponse(HttpMethod.GET, fullUrl);
@@ -90,12 +79,70 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             Assert.AreEqual(adminLogin, serviceResponse.content);
         }
 
+        // http://localhost:8080/user?adminToken= &newName= &newPassword= &adminRights= &reqtype=createUser
+        [TestCase("Petro", "qazwsx", "true")]
+        [TestCase("Oksana", "zxcasd", "false")]
+        public void TestCreateUser(string userName, string userPassword, string adminRights)
+        {
+            string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.POST), token, userName, userPassword, adminRights);
+            HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            LoggingLog.WritingLogging($"Test Create User: {user} - {serviceResponse.content}", null);
+            Assert.AreEqual("true", serviceResponse.content);
+        }
+
+        //http://localhost:8080/login/users?adminToken= &reqtype=getLoginedUsers
+        [Test]
+        public void TestGetLogginedUser()
+        {
+            string fullUrl = UrlBuilder(FindRequest(String.Concat(login, users), HttpMethod.GET), token);
+            HttpWebResponse webResponse = GetResponse(HttpMethod.GET, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            LoggingLog.WritingLogging($"Test Get Loggined User: result = {serviceResponse.content}", null);
+            StringAssert.Contains(adminLogin, serviceResponse.content);
+        }
+        
+        //http://localhost:8080/users?adminToken= &reqtype=getAllUsers
+        [Test]
+        public void TestGetAllUser()
+        {
+            string fullUrl = UrlBuilder(FindRequest(users, HttpMethod.GET), token);
+            HttpWebResponse webResponse = GetResponse(HttpMethod.GET, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            LoggingLog.WritingLogging($"Test Get All User: result = \n {serviceResponse.content}", null);
+            Assert.AreEqual(113, serviceResponse.content.Length);
+        }
+
+        ////http://localhost:8080/user?token= &oldPassword= &newPassword&reqtype=changePassword,
+        //public void TestChangeUserPaswword()
+        //{
+        //    string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.PUT), usersToken["Petro"], "qazwsx", "edcrfv");
+        //    HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
+        //    ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, serviceResponse.content);
+        //}
+
+        //http://localhost:8080/logout?name= &token=&reqtype=logout,
+        [Test]
+        public void TestLogout()
+        {
+            string fullUrl = UrlBuilder(FindRequest(logout, HttpMethod.POST), adminLogin, token);
+            HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            LoggingLog.WritingLogging($"Test logout: result = {serviceResponse.content}", null);
+            Assert.AreEqual("true", serviceResponse.content);
+        }
+
+        #endregion
+
+        #region Tests Items
+        
         //http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem  "1 \tSquare\n2 \tCircle\n3 \tRegtangle\n"
         [TestCase("Square", "1")]
         [TestCase("Circle", "2")]
         [TestCase("Regtangle", "3")]
         [TestCase(testItem, testIndex)]
-        public void Test_Add_Item(string itemName, string index)
+        public void TestAddItem(string itemName, string index)
         {
             allItems += string.Format(index + " " + "\t" + itemName + "\n");
             string fullUrl = UrlBuilder(FindRequest(item, HttpMethod.POST), token, itemName, index);
@@ -104,10 +151,10 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             LoggingLog.WritingLogging($"Test Add Item: result = {serviceResponse.content}", null);
             Assert.AreEqual("true", serviceResponse.content);
         }
-
+ 
         //http://localhost:8080/items?token= &reqtype=getAllItems  
         [Test]
-        public void Test_Get_All_Items() {
+        public void TestGetAllItems() {
             string fullUrl = UrlBuilder(FindRequest(items, HttpMethod.GET), token);
             HttpWebResponse webResponse = GetResponse(HttpMethod.GET, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
@@ -118,7 +165,7 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
 
         //http://localhost:8080/item/{index}?token= &index= &reqtype=deleteItem
         [Test]
-        public void Test_Remove_Item()
+        public void TestRemoveItem()
         {
             string fullUrl = UrlBuilder(FindRequest(item, HttpMethod.DELETE), token, testIndex);
             HttpWebResponse webResponse = GetResponse(HttpMethod.DELETE, fullUrl);
@@ -126,48 +173,8 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             LoggingLog.WritingLogging($"Test Remove Item: result = {serviceResponse.content}", null);
             Assert.AreEqual("true", serviceResponse.content);
         }
-
-        #region Not work tests
-
-        // http://localhost:8080/user?adminToken= &newName= &newPassword= &adminRights= &reqtype=createUser
-        //[TestCase("Petro", "qazwsx")]
-        //[TestCase("Oksana", "zxcasd")]
-        //[TestCase("Viktoriya", "edcrfv")]
-        //public void Test_Create_User(string userName, string userPassword)
-        //{
-        //    string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.POST), token, userName, userPassword, "true");
-        //    HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
-        //    ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
-        //    LoggingLog.WriteWritingLogging($"{webResponse.StatusCode} {serviceResponse.content}", null);
-        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, $"Message from service {serviceResponse.content}");
-        //}
-
-        //[TestCase("Petro", "qazwsx")]
-        //[TestCase("Oksana", "zxcasd")]
-        //[TestCase("Viktoriya", "edcrfv")]
-        //public void Test_User_Login(string userName, string userPassword)
-        //{
-        //    string fullUrl = UrlBuilder(FindRequest(login, HttpMethod.POST), userName, userPassword);
-        //    HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
-        //    ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
-        //    try
-        //    { usersToken.Add(userName, serviceResponse.content); }
-        //    catch (Exception exception)
-        //    {
-        //        LoggingLog.WriteWritingLogging("ex", exception);
-        //    }
-
-        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, serviceResponse.content);
-        //}
-
-        //http://localhost:8080/user?token= &oldPassword= &newPassword&reqtype=changePassword,
-        //public void Test_Change_User_Paswword()
-        //{
-        //    string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.PUT), usersToken["Petro"], "qazwsx", "edcrfv");
-        //    HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
-        //    ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
-        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, serviceResponse.content);
-        //}
+       
         #endregion
+
     }
 }
