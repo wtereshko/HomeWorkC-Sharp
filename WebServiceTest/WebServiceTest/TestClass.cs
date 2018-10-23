@@ -25,7 +25,6 @@ PUT		http://localhost:8080/locked/user/{name}?adminToken= &name= &reqtype=unlock
 PUT		http://localhost:8080/locked/reset?adminToken= &reqtype=unlockAllUsers
 GET		http://localhost:8080/item/user/{name}?adminToken = &name= &reqtype=getUserItems
 GET		http://localhost:8080/item/{index}/user/{name}?adminToken= &name= &index= &reqtype=getUserItem
-POST	http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem
 DELETE	http://localhost:8080/item/{index}?token= &index= &reqtype=deleteItem
 PUT		http://localhost:8080/item/{index}?token= &index= &item= &reqtype=updateItem
 GET		http://localhost:8080/items?token= &reqtype=getAllItems
@@ -37,6 +36,7 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
     public class TestClass
     {
         private string token;
+        private string allItems = string.Empty;
         private Dictionary<string, string> usersToken;
 
         [OneTimeSetUp]
@@ -90,18 +90,31 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             Assert.AreEqual(adminLogin, serviceResponse.content);
         }
 
-        //http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem
-        [TestCase ("Square", "0", "1")]
+        //http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem  "1 \tSquare\n2 \tCircle\n3 \tRegtangle\n"
+        [TestCase("Square", "0", "1")]
         [TestCase("Circle", "1", "2")]
         [TestCase("Regtangle", "2", "3")]
         public void Test_Add_Item(string itemName, string itemIndex, string index)
         {
+            allItems += string.Format(index + " " + "\t" + itemName + "\n");
             string fullUrl = UrlBuilder(FindRequest(item, HttpMethod.POST), token, itemName, itemIndex, index);
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             LoggingLog.WritingLogging($"Test Add Item: result = {serviceResponse.content}", null);
             Assert.AreEqual("true", serviceResponse.content);
         }
+
+        //GET http://localhost:8080/items?token= &reqtype=getAllItems  
+        [Test]
+        public void Test_Get_All_Items() {
+            string fullUrl = UrlBuilder(FindRequest(items, HttpMethod.GET), token);
+            HttpWebResponse webResponse = GetResponse(HttpMethod.GET, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            LoggingLog.WritingLogging($"Test Get All Items: result = {serviceResponse.content}", null);
+            Assert.AreEqual(allItems, serviceResponse.content);
+        }
+
+
 
         #region Not work tests
 
