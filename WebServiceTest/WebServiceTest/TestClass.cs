@@ -75,7 +75,7 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             LoggingLog.WritingLogging($"Test logout: result = {serviceResponse.content}", null);
-            Assert.AreEqual("true", webResponse.StatusCode);
+            Assert.AreEqual("true", serviceResponse.content);
         }
 
 
@@ -91,11 +91,12 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
         }
 
         //http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem
-
-        [Test]
-        public void Test_Add_Item()
+        [TestCase ("Square", "0", "1")]
+        [TestCase("Circle", "1", "2")]
+        [TestCase("Regtangle", "2", "3")]
+        public void Test_Add_Item(string itemName, string itemIndex, string index)
         {
-            string fullUrl = UrlBuilder(FindRequest(item, HttpMethod.POST), token, "Ball", "2", "1");
+            string fullUrl = UrlBuilder(FindRequest(item, HttpMethod.POST), token, itemName, itemIndex, index);
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             LoggingLog.WritingLogging($"Test Add Item: result = {serviceResponse.content}", null);
