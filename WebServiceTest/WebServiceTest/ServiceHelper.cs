@@ -30,6 +30,9 @@ namespace WebServiceTest
         public const string items = "/items";
         public const string adminLogin = "admin";
         public const string adminPassword = "qwerty";
+        public const string testItem = "Triangle";
+        public const string testIndex = "4";
+
 
         private static ServiceRequests serviceRequests;
         private static string url = "http://localhost:8080";

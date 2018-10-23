@@ -91,30 +91,41 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
         }
 
         //http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem  "1 \tSquare\n2 \tCircle\n3 \tRegtangle\n"
-        [TestCase("Square", "0", "1")]
-        [TestCase("Circle", "1", "2")]
-        [TestCase("Regtangle", "2", "3")]
-        public void Test_Add_Item(string itemName, string itemIndex, string index)
+        [TestCase("Square", "1")]
+        [TestCase("Circle", "2")]
+        [TestCase("Regtangle", "3")]
+        [TestCase(testItem, testIndex)]
+        public void Test_Add_Item(string itemName, string index)
         {
             allItems += string.Format(index + " " + "\t" + itemName + "\n");
-            string fullUrl = UrlBuilder(FindRequest(item, HttpMethod.POST), token, itemName, itemIndex, index);
+            string fullUrl = UrlBuilder(FindRequest(item, HttpMethod.POST), token, itemName, index);
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             LoggingLog.WritingLogging($"Test Add Item: result = {serviceResponse.content}", null);
             Assert.AreEqual("true", serviceResponse.content);
         }
 
-        //GET http://localhost:8080/items?token= &reqtype=getAllItems  
+        //http://localhost:8080/items?token= &reqtype=getAllItems  
         [Test]
         public void Test_Get_All_Items() {
             string fullUrl = UrlBuilder(FindRequest(items, HttpMethod.GET), token);
             HttpWebResponse webResponse = GetResponse(HttpMethod.GET, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             LoggingLog.WritingLogging($"Test Get All Items: result = {serviceResponse.content}", null);
-            Assert.AreEqual(allItems, serviceResponse.content);
+           // Assert.AreEqual(allItems, serviceResponse.content);
+            StringAssert.Contains(testItem, serviceResponse.content);
         }
 
-
+        //http://localhost:8080/item/{index}?token= &index= &reqtype=deleteItem
+        [Test]
+        public void Test_Remove_Item()
+        {
+            string fullUrl = UrlBuilder(FindRequest(item, HttpMethod.DELETE), token, testIndex);
+            HttpWebResponse webResponse = GetResponse(HttpMethod.DELETE, fullUrl);
+            ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+            LoggingLog.WritingLogging($"Test Remove Item: result = {serviceResponse.content}", null);
+            Assert.AreEqual("true", serviceResponse.content);
+        }
 
         #region Not work tests
 
