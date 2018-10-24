@@ -110,7 +110,7 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             HttpWebResponse webResponse = GetResponse(HttpMethod.GET, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             LoggingLog.WritingLogging($"Test Get All User: result = \n {serviceResponse.content}", null);
-            Assert.AreEqual(113, serviceResponse.content.Length);
+            StringAssert.Contains(testUserName, serviceResponse.content);
         }
 
         ////http://localhost:8080/user?token= &oldPassword= &newPassword&reqtype=changePassword,
@@ -119,12 +119,22 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
         //    string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.PUT), usersToken["Petro"], "qazwsx", "edcrfv");
         //    HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
         //    ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
-        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode, serviceResponse.content);
+        //    Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
+        //}
+
+
+        ////DELETE http://localhost:8080/user?adminToken= &removedName= &reqtype=removeUser
+        //public void TestRemoveUser()
+        //{
+        //    string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.DELETE), token);
+        //    HttpWebResponse webResponse = GetResponse(HttpMethod.DELETE, fullUrl);
+        //    ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
+        //    Assert.AreEqual("true", webResponse.StatusCode);
         //}
 
         //http://localhost:8080/logout?name= &token=&reqtype=logout,
         [Test]
-        public void TestLogout()
+        public void TestUserLogout()
         {
             string fullUrl = UrlBuilder(FindRequest(logout, HttpMethod.POST), adminLogin, token);
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
