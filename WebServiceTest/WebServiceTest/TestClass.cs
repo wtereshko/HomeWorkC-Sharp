@@ -65,7 +65,7 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
             token = serviceResponse.content;
             LoggingLog.WritingLogging($"Test Login: token = {serviceResponse.content}", null);
-            Assert.AreEqual(HttpStatusCode.OK, webResponse.StatusCode);
+            Assert.AreEqual(32, serviceResponse.content.Length);
         }
 
         // http://localhost:8080/user?token= &reqtype=getUserName, 
@@ -81,13 +81,13 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
 
         // http://localhost:8080/user?adminToken= &newName= &newPassword= &adminRights= &reqtype=createUser
         [TestCase("Petro", "qazwsx", "true")]
-        [TestCase("Oksana", "zxcasd", "false")]
+        [TestCase(testUserName, testUserPassword, "false")]
         public void TestCreateUser(string userName, string userPassword, string adminRights)
         {
             string fullUrl = UrlBuilder(FindRequest(user, HttpMethod.POST), token, userName, userPassword, adminRights);
             HttpWebResponse webResponse = GetResponse(HttpMethod.POST, fullUrl);
             ServiceResponse serviceResponse = GetServiceResponse(GetBody(webResponse));
-            LoggingLog.WritingLogging($"Test Create User: {user} - {serviceResponse.content}", null);
+            LoggingLog.WritingLogging($"Test Create User: {userName} - {serviceResponse.content}", null);
             Assert.AreEqual("true", serviceResponse.content);
         }
 
@@ -139,8 +139,6 @@ GET		http://localhost:8080/item/{index}?token= &index= &reqtype=getItem
         
         //http://localhost:8080/item/{index}?token= &item= &index =&reqtype=addItem  "1 \tSquare\n2 \tCircle\n3 \tRegtangle\n"
         [TestCase("Square", "1")]
-        [TestCase("Circle", "2")]
-        [TestCase("Regtangle", "3")]
         [TestCase(testItem, testIndex)]
         public void TestAddItem(string itemName, string index)
         {

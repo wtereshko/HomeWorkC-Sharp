@@ -30,8 +30,12 @@ namespace WebServiceTest
         public const string items = "/items";
         public const string adminLogin = "admin";
         public const string adminPassword = "qwerty";
+
+        //Test data
+        public const string testUserName = "Oksana";
+        public const string testUserPassword = "edcrfv";
         public const string testItem = "Triangle";
-        public const string testIndex = "4";
+        public const string testIndex = "2";
 
 
         private static ServiceRequests serviceRequests;
@@ -77,20 +81,25 @@ namespace WebServiceTest
             
             if (parseStrings.Length > 2)
             {
-               stringBuilder.Append("?" + parseStrings[2].Replace("PARAMETERS= ", "") + $"={parameters[0]}");
+               stringBuilder.Append("?" + parseStrings[2].ToLower().Replace("parameters= ", "") + $"={parameters[0]}");
                 if (parseStrings.Length > 3)
                 {
                     for (int i = 3; i < parseStrings.Length; i++)
                     {
                         int index = i - 2;
-                        stringBuilder.Append("&" + parseStrings[i] + $"={parameters[index]}");
+                        stringBuilder.Append("&" + parseStrings[i].ToLower() + $"={parameters[index]}");
                     }
                 }
             }
 
-            if (stringBuilder.ToString().Contains("adminToken"))
+            if (stringBuilder.ToString().Contains("new"))
             {
-                stringBuilder.Replace("adminToken", "token");
+                stringBuilder.Replace("new", "");
+            }
+
+            if (stringBuilder.ToString().Contains("admintoken"))
+            {
+                stringBuilder.Replace("admintoken", "token");
             }
 
             if (stringBuilder.ToString().Contains("{index}"))
