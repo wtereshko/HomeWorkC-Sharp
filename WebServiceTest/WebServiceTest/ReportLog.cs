@@ -3,7 +3,7 @@ using System.IO;
 
 namespace WebServiceTest
 {
-    public class LoggingLog
+    public class ReportLog
     {
         #region Fields
 
@@ -26,7 +26,7 @@ namespace WebServiceTest
         /// <summary>
         /// Initialization logging
         /// </summary>
-        public static void InitializationLogging()
+        public static void InitializationLogging(string fileName)
         {
             directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
@@ -38,7 +38,7 @@ namespace WebServiceTest
 
             fileStream =
                 File.Open(
-                    string.Format("{0}\\TestsLog\\Logging.{1}.txt", directory, DateTime.Now.ToString("MM/dd/yyyy")),
+                    string.Format("{0}\\TestsLog\\{1}.{2}.txt", directory, fileName, DateTime.Now.ToString("MM/dd/yyyy")),
                     FileMode.Append,
                     FileAccess.Write,
                     FileShare.Read);
@@ -48,13 +48,13 @@ namespace WebServiceTest
         /// <summary>
         /// Write log
         /// </summary>
-        /// <param name="message"></param>
         /// <param name="exception"></param>
-        public static void WritingLogging(string message, Exception exception )
+        /// <param name="message"></param>
+        public static void WritingLogging(Exception exception, string message = "Message empty")
         {
             if (exception != null)
             {
-                streamWriter.WriteLine("{0}; {1}", DateTime.Now, string.Format($"{exception.Message} \n stack trace:\n {exception.StackTrace}"));
+                streamWriter.WriteLine("{0}: {1}",DateTime.Now, string.Format($"{exception.Message} \n stack trace:\n {exception.StackTrace}"));
             }
             else
             {

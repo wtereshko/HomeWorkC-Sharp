@@ -6,7 +6,7 @@ namespace Run
     {
         static void Main(string[] args)
         {
-           LoggingLog.InitializationLogging();
+
         }
     }
 }
