@@ -1,7 +1,4 @@
-﻿using System;
-using NUnit.Framework;
-using System.Collections.Generic;
-using static WebServiceTest.ServiceHelper;
+﻿using NUnit.Framework;
 
 namespace WebServiceTest
 {
@@ -20,7 +17,7 @@ namespace WebServiceTest
         {
             ReportLog.InitializationLogging(this.GetType().Name);
             ReportLog.WritingLogging(null, "Beginning of tests");
-            GetAllRestRequest();
+            ServiceHelper.GetAllRestRequest();
             GetToken();
         }
 
@@ -39,7 +36,9 @@ namespace WebServiceTest
 
         private void GetToken()
         {
-            token = PostRequest(login, adminLogin, adminPassword);
+            token = ServiceHelper.PostRequest(ServiceHelper.login, 
+                        ServiceHelper.adminLogin, 
+                        ServiceHelper.adminPassword);
         }
     }
 }
