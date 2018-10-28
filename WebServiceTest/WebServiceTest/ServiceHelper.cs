@@ -201,6 +201,12 @@ namespace WebServiceTest
             serviceRequests = GetPosibleServiceRequests(GetBody(GetResponse(HttpMethod.GET, url)));
         }
 
+        /// <summary>
+        /// Method for Get request
+        /// </summary>
+        /// <param name="searchUrlByParameter"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static string GetRequest(string searchUrlByParameter, params string[] parameters)
         {
             try
@@ -222,6 +228,12 @@ namespace WebServiceTest
             return serviceResponse.content;
         }
 
+        /// <summary>
+        /// Method for Post request
+        /// </summary>
+        /// <param name="searchUrlByParameter"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static string PostRequest(string searchUrlByParameter, params string[] parameters)
         {
             try
@@ -243,6 +255,12 @@ namespace WebServiceTest
             return serviceResponse.content;
         }
 
+        /// <summary>
+        /// Method for Put request
+        /// </summary>
+        /// <param name="searchUrlByParameter"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static string PutRequest(string searchUrlByParameter, params string[] parameters)
         {
             try
@@ -263,6 +281,12 @@ namespace WebServiceTest
             return serviceResponse.content;
         }
 
+        /// <summary>
+        /// Method for Delete request
+        /// </summary>
+        /// <param name="searchUrlByParameter"></param>
+        /// <param name="parameters"></param>
+        /// <returns></returns>
         public static string DeleteRequest(string searchUrlByParameter, params string[] parameters)
         {
             try
